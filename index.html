@@ -1,150 +1,122 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="hy">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmeriaBank - Вход в систему</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>SaqBank - Online Applications</title>
     <style>
-        /* Базовые стили */
-        body, html {
-            margin: 0; padding: 0; height: 100%; overflow: hidden;
-            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-            background-color: #f0f2f1;
+        /* Оригинальные цвета и шрифты Ameriabank */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "GHEA Grapalat", Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        /* Экран загрузки */
-        #loading-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff; z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease;
+        /* Контейнер формы как в оригинале */
+        .app-container {
+            background: #fff;
+            width: 90%;
+            max-width: 400px;
+            padding: 40px 20px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
-        .loader-container {
-            width: 240px; padding: 25px; border: 1px solid #68b92e;
-            text-align: center; background: #fafafa;
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #23697c; /* Цвет Ameriabank */
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .progress-bar {
-            height: 4px; background: #e0e0e0; margin-bottom: 12px;
-            border-radius: 2px; overflow: hidden;
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
         }
 
-        #progress-fill {
-            width: 0%; height: 100%; background: #68b92e;
-            transition: width 1s ease-in-out;
+        label {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 8px;
         }
 
-        .loader-text {
-            color: #23697c; font-size: 12px; font-weight: bold;
-            text-transform: uppercase; letter-spacing: 1px;
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            outline: none;
+            background-color: #fff;
         }
 
-        /* Основной контент */
-        .main-wrapper {
-            position: absolute; top: 0; bottom: 50px; width: 100%;
-            display: flex; justify-content: center; align-items: center;
+        input:focus {
+            border-color: #23697c;
         }
 
-        /* Карточка входа */
-        .login-form {
-            background: #ffffff; width: 320px; padding: 40px 30px;
-            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            border-top: 6px solid #68b92e;
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background-color: #68b92e; /* Зеленый Ameriabank */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
         }
 
-        .login-form h2 {
-            margin: 0 0 25px; color: #333; text-align: center;
-            font-size: 20px; font-weight: 600;
+        .btn-primary:hover {
+            background-color: #58a026;
         }
 
-        .field { margin-bottom: 20px; }
-
-        .field label {
-            display: block; font-size: 11px; color: #888;
-            margin-bottom: 6px; text-transform: uppercase; font-weight: bold;
-        }
-
-        .field input {
-            width: 100%; padding: 12px; border: 1px solid #dcdcdc;
-            border-radius: 6px; box-sizing: border-box; outline: none;
-            font-size: 14px; transition: border-color 0.3s;
-        }
-
-        .field input:focus { border-color: #68b92e; }
-
-        .btn-submit {
-            width: 100%; padding: 14px; background: #68b92e;
-            color: #fff; border: none; border-radius: 6px;
-            font-size: 14px; font-weight: bold; cursor: pointer;
-            transition: background 0.3s; margin-top: 10px;
-        }
-
-        .btn-submit:hover { background: #57a025; }
-
-        /* Нижняя панель */
-        .taskbar {
-            position: absolute; bottom: 0; width: 100%; height: 50px;
-            background: #68b92e; display: flex; align-items: center;
-            padding: 0 20px; box-sizing: border-box;
-        }
-
-        .task-button {
-            background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);
-            color: #fff; padding: 6px 16px; border-radius: 4px;
-            font-size: 12px; cursor: pointer;
+        /* Футер 1:1 */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #23697c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Загрузка -->
-    <div id="loading-screen">
-        <div class="loader-container">
-            <div class="progress-bar"><div id="progress-fill"></div></div>
-            <div class="loader-text">Загрузка системы...</div>
+    <div class="app-container">
+        <div class="logo">SaqBank</div>
+        
+        <div class="form-group">
+            <label>Մուտքանուն (Логин)</label>
+            <input type="text" placeholder="Введите логин">
         </div>
-    </div>
 
-    <!-- Область входа -->
-    <div class="main-wrapper">
-        <div class="login-form">
-            <h2>Вход в кабинет</h2>
-            <div class="field">
-                <label>Ваш логин</label>
-                <input type="text" placeholder="Введите логин">
-            </div>
-            <div class="field">
-                <label>Ваш пароль</label>
-                <input type="password" placeholder="Введите пароль">
-            </div>
-            <button class="btn-submit" onclick="alert('Вход выполнен (демо)')">ВОЙТИ</button>
+        <div class="form-group">
+            <label>Գաղտնաբառ (Пароль)</label>
+            <input type="password" placeholder="Введите пароль">
         </div>
+
+        <button class="btn-primary">ՄՈՒՏՔ</button>
     </div>
 
-    <!-- Панель -->
-    <div class="taskbar">
-        <div class="task-button">MainForm</div>
+    <div class="footer">
+        © 2026 SaqBank CJSC
     </div>
-
-    <script>
-        // Логика исчезновения экрана загрузки
-        window.addEventListener('load', function() {
-            const fill = document.getElementById('progress-fill');
-            const screen = document.getElementById('loading-screen');
-            
-            // Запускаем полоску
-            setTimeout(() => { fill.style.width = '100%'; }, 100);
-            
-            // Убираем экран через 1.2 секунды
-            setTimeout(() => {
-                screen.style.opacity = '0';
-                setTimeout(() => { screen.style.display = 'none'; }, 500);
-            }, 1200);
-        });
-    </script>
 
 </body>
 </html>
-
-
