@@ -3,88 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmeriaBank - Internet Bank</title>
+    <title>AmeriaBank - Вход в систему</title>
     <style>
-        /* Общие настройки страницы */
+        /* Базовые стили */
         body, html {
             margin: 0; padding: 0; height: 100%; overflow: hidden;
-            font-family: Tahoma, Arial, sans-serif; background-color: #ffffff;
-        }
-
-        /* Основная рабочая область */
-        #VWG_BodyContent {
-            position: absolute; top: 0; bottom: 50px; width: 100%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-        }
-
-        /* Нижняя панель задач */
-        #VWG_TaskBarBox {
-            position: absolute; bottom: 0; width: 100%; height: 50px;
-            background-color: #23697c; /* Фирменный цвет из твоего кода */
-            display: flex; align-items: center; padding: 0 15px; box-sizing: border-box;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-        }
-
-        .taskbar-item {
-            padding: 8px 20px; background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3); border-radius: 4px;
-            color: white; font-size: 13px; cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background-color: #f0f2f1;
         }
 
         /* Экран загрузки */
-        #VWG_LoadingScreen {
+        #loading-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 1000; display: flex;
-            justify-content: center; align-items: center; transition: opacity 0.4s;
+            background: #ffffff; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
         }
 
-        .loading-box {
-            width: 220px; padding: 20px; text-align: center;
-            border: 1px solid #68b92e; background: #f9f9f9;
+        .loader-container {
+            width: 240px; padding: 25px; border: 1px solid #68b92e;
+            text-align: center; background: #fafafa;
         }
 
-        .loading-text {
-            color: #23697c; font-weight: bold; font-size: 12px; margin-top: 10px;
+        .progress-bar {
+            height: 4px; background: #e0e0e0; margin-bottom: 12px;
+            border-radius: 2px; overflow: hidden;
+        }
+
+        #progress-fill {
+            width: 0%; height: 100%; background: #68b92e;
+            transition: width 1s ease-in-out;
+        }
+
+        .loader-text {
+            color: #23697c; font-size: 12px; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* Основной контент */
+        .main-wrapper {
+            position: absolute; top: 0; bottom: 50px; width: 100%;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* Карточка входа */
+        .login-form {
+            background: #ffffff; width: 320px; padding: 40px 30px;
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-top: 6px solid #68b92e;
+        }
+
+        .login-form h2 {
+            margin: 0 0 25px; color: #333; text-align: center;
+            font-size: 20px; font-weight: 600;
+        }
+
+        .field { margin-bottom: 20px; }
+
+        .field label {
+            display: block; font-size: 11px; color: #888;
+            margin-bottom: 6px; text-transform: uppercase; font-weight: bold;
+        }
+
+        .field input {
+            width: 100%; padding: 12px; border: 1px solid #dcdcdc;
+            border-radius: 6px; box-sizing: border-box; outline: none;
+            font-size: 14px; transition: border-color 0.3s;
+        }
+
+        .field input:focus { border-color: #68b92e; }
+
+        .btn-submit {
+            width: 100%; padding: 14px; background: #68b92e;
+            color: #fff; border: none; border-radius: 6px;
+            font-size: 14px; font-weight: bold; cursor: pointer;
+            transition: background 0.3s; margin-top: 10px;
+        }
+
+        .btn-submit:hover { background: #57a025; }
+
+        /* Нижняя панель */
+        .taskbar {
+            position: absolute; bottom: 0; width: 100%; height: 50px;
+            background: #68b92e; display: flex; align-items: center;
+            padding: 0 20px; box-sizing: border-box;
+        }
+
+        .task-button {
+            background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);
+            color: #fff; padding: 6px 16px; border-radius: 4px;
+            font-size: 12px; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- Экран загрузки -->
-    <div id="VWG_LoadingScreen">
-        <div class="loading-box">
-            <div style="height: 4px; background: #eee; border-radius: 2px; overflow: hidden;">
-                <div id="progress" style="width: 0%; height: 100%; background: #68b92e; transition: width 0.8s;"></div>
-            </div>
-            <div class="loading-text">Loading, please wait ...</div>
+    <!-- Загрузка -->
+    <div id="loading-screen">
+        <div class="loader-container">
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+            <div class="loader-text">Загрузка системы...</div>
         </div>
     </div>
 
-    <!-- Основной контент -->
-    <div id="VWG_BodyContent">
-        <h1 style="color: #23697c; font-size: 24px;">Добро пожаловать в систему</h1>
-        <p style="color: #666;">Ваш личный кабинет готов к работе.</p>
+    <!-- Область входа -->
+    <div class="main-wrapper">
+        <div class="login-form">
+            <h2>Вход в кабинет</h2>
+            <div class="field">
+                <label>Ваш логин</label>
+                <input type="text" placeholder="Введите логин">
+            </div>
+            <div class="field">
+                <label>Ваш пароль</label>
+                <input type="password" placeholder="Введите пароль">
+            </div>
+            <button class="btn-submit" onclick="alert('Вход выполнен (демо)')">ВОЙТИ</button>
+        </div>
     </div>
 
-    <!-- Панель задач -->
-    <div id="VWG_TaskBarBox">
-        <div class="taskbar-item">Главная</div>
+    <!-- Панель -->
+    <div class="taskbar">
+        <div class="task-button">MainForm</div>
     </div>
 
     <script>
-        // Убираем экран загрузки после открытия страницы
-        window.onload = function() {
-            const progress = document.getElementById('progress');
-            const loader = document.getElementById('VWG_LoadingScreen');
+        // Логика исчезновения экрана загрузки
+        window.addEventListener('load', function() {
+            const fill = document.getElementById('progress-fill');
+            const screen = document.getElementById('loading-screen');
             
-            progress.style.width = '100%';
+            // Запускаем полоску
+            setTimeout(() => { fill.style.width = '100%'; }, 100);
             
+            // Убираем экран через 1.2 секунды
             setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 400);
-            }, 1000);
-        };
+                screen.style.opacity = '0';
+                setTimeout(() => { screen.style.display = 'none'; }, 500);
+            }, 1200);
+        });
     </script>
 
 </body>
 </html>
+
+
