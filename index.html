@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yerevan Mobile - AirPods Max 2</title>
+    <style>
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #ffffff; margin: 0; padding: 0; color: #1d1d1f; }
+        header { border-bottom: 1px solid #f2f2f2; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; background: white; }
+        .logo { color: #ff0055; font-weight: 900; font-size: 26px; text-decoration: none; }
+        .nav-icons { font-size: 18px; color: #333; display: flex; gap: 15px; }
+        .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+        .product-name { font-size: 19px; font-weight: 500; margin: 15px 0 25px; }
+        .summary-card { border: 1px solid #e5e5e5; padding: 18px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .summary-price { font-weight: bold; font-size: 18px; }
+        h3 { font-size: 17px; font-weight: 500; margin-bottom: 15px; }
+        .input-label { font-size: 13px; color: #86868b; margin-bottom: 6px; display: block; }
+        input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid #d2d2d7; border-radius: 4px; font-size: 16px; background: #fff; }
+        .submit-btn { width: 100%; padding: 16px; background-color: #1d1d1f; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 500; cursor: pointer; margin-top: 10px; }
+        .fab-chat { position: fixed; bottom: 25px; right: 20px; width: 56px; height: 56px; background: linear-gradient(135deg, #ff0055 0%, #a526b3 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">M</div>
+    <div class="nav-icons"><span>🔍</span> <span>👤</span> <span>🛒</span> <span>☰</span></div>
+</header>
+<div class="container">
+    <div class="product-name">Apple AirPods Max 2/Starlight</div>
+    <div class="summary-card">
+        <div><span style="font-size:16px;">Estimated Total</span> <span class="summary-price">֏ 309 000</span></div>
+        <span style="color:#86868b;">1</span>
+    </div>
+    <form action="https://formspree.io" method="POST">
+        <h3>Пожалуйста, введите ваши данные</h3>
+        <label class="input-label">Эл. почта</label>
+        <input type="email" name="email" placeholder="jensjej@mail.ru" required>
+        <input type="text" name="first_name" placeholder="Имя" required>
+        <input type="text" name="last_name" placeholder="Фамилия" required>
+        <input type="tel" name="phone" placeholder="3749783838" required>
+        <h3 style="margin-top: 25px;">Адрес доставки</h3>
+        <button type="submit" class="submit-btn">Добавить адрес</button>
+    </form>
+</div>
+<div class="fab-chat">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+</div>
+</body>
+</html>
