@@ -3,119 +3,127 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <title>SaqBank - Online Applications</title>
+    <title>SaqBank - Օնլայն հայտեր</title>
     <style>
-        /* Оригинальные цвета и шрифты Ameriabank */
         body {
             margin: 0;
             padding: 0;
             font-family: "GHEA Grapalat", Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #f4f7f6;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        /* Контейнер формы как в оригинале */
-        .app-container {
-            background: #fff;
-            width: 90%;
-            max-width: 400px;
-            padding: 40px 20px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        /* Стилизация названия под Ameriabank */
+        .brand {
             text-align: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #23697c; /* Цвет Ameriabank */
             margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
+        .brand-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: #23697c; /* Фирменный синий Ameriabank */
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            display: inline-block;
+        }
+
+        .brand-name span {
+            color: #68b92e; /* Зеленый акцент */
+        }
+
+        .login-card {
+            background: #ffffff;
+            width: 90%;
+            max-width: 380px;
+            padding: 40px 30px;
+            border-radius: 2px; /* У Ameriabank острые углы или минимальный радиус */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .field {
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            font-size: 13px;
-            color: #555;
+            font-size: 12px;
+            color: #818181;
             margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            box-sizing: border-box;
+            padding: 15px 0;
+            border: none;
+            border-bottom: 1px solid #d1d1d1;
             font-size: 16px;
             outline: none;
-            background-color: #fff;
+            transition: border-color 0.3s;
         }
 
         input:focus {
-            border-color: #23697c;
+            border-bottom: 2px solid #23697c;
         }
 
-        .btn-primary {
+        .btn-submit {
             width: 100%;
-            padding: 14px;
-            background-color: #68b92e; /* Зеленый Ameriabank */
-            color: #fff;
+            padding: 16px;
+            background-color: #68b92e;
+            color: white;
             border: none;
-            border-radius: 4px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            text-transform: uppercase;
+            margin-top: 20px;
         }
 
-        .btn-primary:hover {
+        .btn-submit:hover {
             background-color: #58a026;
         }
 
-        /* Футер 1:1 */
         .footer {
             position: fixed;
             bottom: 0;
             width: 100%;
-            height: 50px;
+            height: 60px;
             background-color: #23697c;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 12px;
+            color: white;
+            font-size: 11px;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <div class="logo">SaqBank</div>
-        
-        <div class="form-group">
-            <label>Մուտքանուն (Логин)</label>
-            <input type="text" placeholder="Введите логин">
+    <div class="brand">
+        <div class="brand-name">Saq<span>Bank</span></div>
+    </div>
+
+    <div class="login-card">
+        <div class="field">
+            <label>Օգտանուն</label>
+            <input type="text" placeholder="Մուտքագրեք Ձեր օգտանունը">
         </div>
 
-        <div class="form-group">
-            <label>Գաղտնաբառ (Пароль)</label>
-            <input type="password" placeholder="Введите пароль">
+        <div class="field">
+            <label>Գաղտնաբառ</label>
+            <input type="password" placeholder="Մուտքագրեք Ձեր գաղտնաբառը">
         </div>
 
-        <button class="btn-primary">ՄՈՒՏՔ</button>
+        <button class="btn-submit">Մուտք</button>
     </div>
 
     <div class="footer">
-        © 2026 SaqBank CJSC
+        © 2026 SAQBANK ՓԲԸ | Բոլոր իրավունքները պաշտպանված են
     </div>
 
 </body>
