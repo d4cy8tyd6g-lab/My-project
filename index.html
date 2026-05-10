@@ -1,129 +1,137 @@
 <!DOCTYPE html>
-<html lang="hy">
+<html lang="ru">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <title>SaqBank - Օնլայն հայտեր</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход • Meta</title>
     <style>
-        body {
+        /* Основные стили (CSS) */
+        * {
             margin: 0;
             padding: 0;
-            font-family: "GHEA Grapalat", Arial, sans-serif;
-            background-color: #f4f7f6;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #000; /* Черный фон как на скрине */
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             height: 100vh;
+            color: #fff;
+            padding: 20px;
         }
 
-        /* Стилизация названия под Ameriabank */
-        .brand {
+        .container {
+            width: 100%;
+            max-width: 360px;
+            margin-top: 40px;
             text-align: center;
+        }
+
+        .meta-logo {
+            font-size: 18px;
+            font-weight: 500;
             margin-bottom: 30px;
-        }
-
-        .brand-name {
-            font-size: 32px;
-            font-weight: 800;
-            color: #23697c; /* Фирменный синий Ameriabank */
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            display: inline-block;
-        }
-
-        .brand-name span {
-            color: #68b92e; /* Зеленый акцент */
-        }
-
-        .login-card {
-            background: #ffffff;
-            width: 90%;
-            max-width: 380px;
-            padding: 40px 30px;
-            border-radius: 2px; /* У Ameriabank острые углы или минимальный радиус */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        .field {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            font-size: 12px;
-            color: #818181;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px 0;
-            border: none;
-            border-bottom: 1px solid #d1d1d1;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        input:focus {
-            border-bottom: 2px solid #23697c;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            background-color: #68b92e;
-            color: white;
-            border: none;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            margin-top: 20px;
-        }
-
-        .btn-submit:hover {
-            background-color: #58a026;
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            background-color: #23697c;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 5px;
+        }
+
+        /* Поля ввода */
+        .input-field {
+            width: 100%;
+            background-color: #1c1c1c; /* Темно-серый фон инпутов */
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 16px 12px;
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: #555;
+        }
+
+        .input-field::placeholder {
+            color: #8e8e8e;
+        }
+
+        /* Кнопка Войти */
+        .login-btn {
+            width: 100%;
+            background-color: #0064e0; /* Ярко-синий */
             color: white;
-            font-size: 11px;
+            border: none;
+            border-radius: 25px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .login-btn:active {
+            opacity: 0.8;
+        }
+
+        /* Забыли пароль */
+        .forgot-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        /* Кнопка внизу */
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            width: calc(100% - 40px);
+            max-width: 360px;
+        }
+
+        .create-btn {
+            width: 100%;
+            background-color: transparent;
+            color: #4c95ff;
+            border: 1px solid #4c95ff;
+            border-radius: 25px;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <div class="brand">
-        <div class="brand-name">Saq<span>Bank</span></div>
-    </div>
-
-    <div class="login-card">
-        <div class="field">
-            <label>Օգտանուն</label>
-            <input type="text" placeholder="Մուտքագրեք Ձեր օգտանունը">
+    <div class="container">
+        <!-- Заголовок имитирующий Meta -->
+        <div class="meta-logo">
+            <span>∞</span> Meta
         </div>
+        
+        <form action="#">
+            <input type="text" class="input-field" placeholder="Имя пользователя, эл. адрес или мобильный телефон" value="ssaqlus">
+            <input type="password" class="input-field" placeholder="Пароль">
+            
+            <button type="submit" class="login-btn">Войти</button>
+        </form>
 
-        <div class="field">
-            <label>Գաղտնաբառ</label>
-            <input type="password" placeholder="Մուտքագրեք Ձեր գաղտնաբառը">
-        </div>
-
-        <button class="btn-submit">Մուտք</button>
+        <a href="#" class="forgot-link">Забыли пароль?</a>
     </div>
 
     <div class="footer">
-        © 2026 SAQBANK ՓԲԸ | Բոլոր իրավունքները պաշտպանված են
+        <a href="#" class="create-btn">Создать новый аккаунт</a>
     </div>
 
 </body>
