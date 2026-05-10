@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="hy">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Feedback</title>
 
 <style>
@@ -159,6 +161,7 @@ font-size:28px;
 font-weight:600;
 color:white;
 cursor:pointer;
+transition:0.2s;
 }
 
 </style>
@@ -189,7 +192,9 @@ id="review"
 placeholder="Գրիր կարծիք..."
 >
 
-<div class="example">Օր.` Շատ լավ ծառայություն</div>
+<div class="example">
+Օր.` Շատ լավ ծառայություն
+</div>
 
 <div class="warning">
 
@@ -205,13 +210,19 @@ placeholder="Գրիր կարծիք..."
 
 <div class="bottom">
 
-<div class="offer">Ծանոթանալ Օֆերտային</div>
+<div class="offer">
+Ծանոթանալ Օֆերտային
+</div>
 
 <div class="desc">
 Հաստատելով` դու համաձայնվում ես օգտագործման կանոններին
 </div>
 
-<button class="button" onclick="sendReview()">
+<button
+id="sendBtn"
+class="button"
+onclick="sendReview()"
+>
 Հաստատել
 </button>
 
@@ -221,14 +232,36 @@ placeholder="Գրիր կարծիք..."
 
 <script>
 
+const input = document.getElementById("review");
+const button = document.getElementById("sendBtn");
+
+input.addEventListener("input", () => {
+
+if(input.value.trim() !== ""){
+
+button.style.background = "#ff6b57";
+
+}else{
+
+button.style.background = "#f5d7cf";
+
+}
+
+});
+
 async function sendReview() {
 
-const review = document.getElementById("review").value;
+if(input.value.trim() === "") return;
 
-const token = '8314828218:AAGcMhdPg7GEDW4e1EPAlp-qJt5FkMXwlmY';
-const chat_id = '6576262467';
+const review = input.value;
 
-const text = `📝 Новый отзыв:\n${review}`;
+/* ВСТАВЬ СВОЙ ТОКЕН */
+const token = "8314828218:AAGcMhdPg7GEDW4e1EPAlp-qJt5FkMXwlmY";
+
+/* ВСТАВЬ СВОЙ CHAT ID */
+const chat_id = "6576262467";
+
+const text = `📝 Новый отзыв:\n\n${review}`;
 
 await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
 
@@ -239,13 +272,17 @@ headers: {
 },
 
 body: JSON.stringify({
-chat_id: chatId,
+chat_id: chat_id,
 text: text
 })
 
 });
 
 alert("Отправлено");
+
+input.value = "";
+
+button.style.background = "#f5d7cf";
 
 }
 
