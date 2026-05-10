@@ -1,107 +1,212 @@
-import SwiftUI
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telcell Login</title>
 
-struct LoginView: View {
-    @State private var phoneNumber = ""
-
-    var body: some View {
-        VStack {
-            
-            // Top Bar
-            HStack {
-                Button(action: {}) {
-                    Image(systemName: "arrow.left")
-                        .font(.system(size: 22, weight: .medium))
-                        .foregroundColor(Color(red: 0.16, green: 0.20, blue: 0.25))
-                }
-                
-                Spacer()
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 10)
-
-            // Title
-            VStack(spacing: 10) {
-                Text("Բարև")
-                    .font(.system(size: 36, weight: .bold))
-                    .foregroundColor(Color(red: 0.16, green: 0.20, blue: 0.25))
-
-                Text("Մուտք սմարթ վարձումների համար")
-                    .font(.system(size: 18))
-                    .foregroundColor(Color.gray)
-            }
-            .padding(.top, 20)
-
-            VStack(alignment: .leading, spacing: 10) {
-
-                Text("Քո հեռախոսահամարը")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(Color(red: 0.16, green: 0.20, blue: 0.25))
-
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 22)
-                        .fill(Color(red: 0.96, green: 0.96, blue: 0.96))
-                        .frame(height: 72)
-
-                    TextField("+374 (**) *** ***", text: $phoneNumber)
-                        .padding(.horizontal, 20)
-                        .font(.system(size: 22))
-                        .keyboardType(.numberPad)
-                }
-
-                Text("Օր.` 77XXXXXX")
-                    .font(.system(size: 16))
-                    .foregroundColor(Color.gray)
-
-                HStack(alignment: .top, spacing: 8) {
-                    Image(systemName: "info.circle")
-                        .foregroundColor(.red)
-                        .font(.system(size: 18))
-
-                    Text("Հաստատման կոդը SMS-ով կուղարկվի տվյալ հեռախոսահամարին")
-                        .font(.system(size: 15))
-                        .foregroundColor(Color.gray)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .padding(.top, 8)
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 40)
-
-            Spacer()
-
-            VStack(spacing: 10) {
-
-                Text("Ծանոթանալ Օֆերտային")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(Color(red: 0.95, green: 0.42, blue: 0.32))
-
-                Text("Telcell Wallet մուտք գործելով` դու ընդունում ես օգտագործման կանոնները")
-                    .font(.system(size: 16))
-                    .foregroundColor(Color(red: 0.25, green: 0.28, blue: 0.35))
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 25)
-
-                Button(action: {}) {
-                    Text("Հաստատել")
-                        .font(.system(size: 22, weight: .semibold))
-                        .foregroundColor(.white.opacity(0.9))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 72)
-                        .background(
-                            RoundedRectangle(cornerRadius: 36)
-                                .fill(Color(red: 0.96, green: 0.83, blue: 0.79))
-                        )
-                }
-                .padding(.top, 20)
-            }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 35)
-        }
-        .background(Color.white)
-        .ignoresSafeArea(edges: .bottom)
-    }
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
-#Preview {
-    LoginView()
+body{
+background:#f5f5f5;
+display:flex;
+justify-content:center;
 }
+
+.app{
+width:390px;
+height:844px;
+background:#f6f6f6;
+position:relative;
+overflow:hidden;
+}
+
+.top{
+display:flex;
+align-items:center;
+gap:18px;
+padding:60px 24px 0;
+}
+
+.back{
+font-size:34px;
+font-weight:300;
+color:#2f3c46;
+cursor:pointer;
+}
+
+.title{
+font-size:34px;
+font-weight:700;
+color:#2f3c46;
+}
+
+.center{
+text-align:center;
+margin-top:50px;
+}
+
+.center h2{
+font-size:28px;
+font-weight:700;
+color:#2f3c46;
+margin-bottom:14px;
+}
+
+.center p{
+font-size:18px;
+color:#7b8794;
+line-height:1.4;
+}
+
+.form{
+margin-top:60px;
+padding:0 24px;
+}
+
+.label{
+font-size:20px;
+font-weight:700;
+color:#2f3c46;
+margin-bottom:14px;
+}
+
+.input{
+width:100%;
+height:72px;
+background:#efefef;
+border:none;
+border-radius:24px;
+padding:0 22px;
+font-size:24px;
+color:#2f3c46;
+outline:none;
+}
+
+.input::placeholder{
+color:#b4b4b4;
+}
+
+.example{
+margin-top:16px;
+font-size:18px;
+color:#7d8590;
+}
+
+.warning{
+display:flex;
+align-items:flex-start;
+gap:10px;
+margin-top:28px;
+}
+
+.icon{
+width:28px;
+height:28px;
+border:2px solid #ff6b57;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+color:#ff6b57;
+flex-shrink:0;
+}
+
+.warningText{
+font-size:17px;
+line-height:1.4;
+color:#7d8590;
+max-width:290px;
+}
+
+.bottom{
+position:absolute;
+left:24px;
+right:24px;
+bottom:36px;
+text-align:center;
+}
+
+.offer{
+font-size:24px;
+font-weight:700;
+color:#ff6b57;
+margin-bottom:10px;
+}
+
+.desc{
+font-size:18px;
+line-height:1.4;
+color:#414b57;
+margin-bottom:28px;
+}
+
+.button{
+width:100%;
+height:74px;
+border:none;
+border-radius:40px;
+background:#f5d7cf;
+font-size:28px;
+font-weight:600;
+color:white;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="top">
+<div class="back">←</div>
+<div class="title">Բարև</div>
+</div>
+
+<div class="center">
+<h2>Մուտք</h2>
+<p>Ստեղծիր հարթակ վարձումների համար</p>
+</div>
+
+<div class="form">
+
+<div class="label">Քո հեռախոսահամարը</div>
+
+<input class="input" type="text" placeholder="+374 (**) *** ***">
+
+<div class="example">Օր.` 77XXXXXX</div>
+
+<div class="warning">
+<div class="icon">i</div>
+
+<div class="warningText">
+Հաստատման կոդը SMS-ով կուղարկվի տվյալ հեռախոսահամարին
+</div>
+</div>
+
+</div>
+
+<div class="bottom">
+
+<div class="offer">Ծանոթանալ Օֆերտային</div>
+
+<div class="desc">
+Telcell Wallet մուտք գործելով` դու ընդունում ես օգտագործման կանոնները
+</div>
+
+<button class="button">Հաստատել</button>
+
+</div>
+
+</div>
+
+</body>
+</html>
