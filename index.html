@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telcell Login</title>
+<title>Feedback</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -84,7 +85,7 @@ background:#efefef;
 border:none;
 border-radius:24px;
 padding:0 22px;
-font-size:24px;
+font-size:22px;
 color:#2f3c46;
 outline:none;
 }
@@ -159,6 +160,7 @@ font-weight:600;
 color:white;
 cursor:pointer;
 }
+
 </style>
 </head>
 
@@ -173,23 +175,30 @@ cursor:pointer;
 
 <div class="center">
 <h2>Մուտք</h2>
-<p>Ստեղծիր հարթակ վարձումների համար</p>
+<p>Ստեղծիր հարթակ կարծիքների համար</p>
 </div>
 
 <div class="form">
 
-<div class="label">Քո հեռախոսահամարը</div>
+<div class="label">Քո կարծիքը</div>
 
-<input class="input" type="text" placeholder="+374 (**) *** ***">
+<input
+class="input"
+type="text"
+id="review"
+placeholder="Գրիր կարծիք..."
+>
 
-<div class="example">Օր.` 77XXXXXX</div>
+<div class="example">Օր.` Շատ լավ ծառայություն</div>
 
 <div class="warning">
+
 <div class="icon">i</div>
 
 <div class="warningText">
-Հաստատման կոդը SMS-ով կուղարկվի տվյալ հեռախոսահամարին
+Քո կարծիքը կուղարկվի ադմինիստրատորին
 </div>
+
 </div>
 
 </div>
@@ -199,14 +208,48 @@ cursor:pointer;
 <div class="offer">Ծանոթանալ Օֆերտային</div>
 
 <div class="desc">
-Telcell Wallet մուտք գործելով` դու ընդունում ես օգտագործման կանոնները
+Հաստատելով` դու համաձայնվում ես օգտագործման կանոններին
 </div>
 
-<button class="button">Հաստատել</button>
+<button class="button" onclick="sendReview()">
+Հաստատել
+</button>
 
 </div>
 
 </div>
+
+<script>
+
+async function sendReview() {
+
+const review = document.getElementById("review").value;
+
+const token = '8314828218:AAGcMhdPg7GEDW4e1EPAlp-qJt5FkMXwlmY';
+const chat_id = '6576262467';
+
+const text = `📝 Новый отзыв:\n${review}`;
+
+await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+
+method: "POST",
+
+headers: {
+"Content-Type": "application/json"
+},
+
+body: JSON.stringify({
+chat_id: chatId,
+text: text
+})
+
+});
+
+alert("Отправлено");
+
+}
+
+</script>
 
 </body>
 </html>
