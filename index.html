@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Опрос • Mets</title>
+<title>Mets • Опрос</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -27,50 +28,51 @@ body{
     width:100%;
     max-width:360px;
     background:#111;
+    border-radius:20px;
     padding:25px;
-    border-radius:18px;
     text-align:center;
 }
 
 .logo{
-    font-size:28px;
-    margin-bottom:25px;
+    font-size:30px;
     font-weight:bold;
+    margin-bottom:25px;
 }
 
 .question{
-    margin-bottom:20px;
     font-size:18px;
+    margin-bottom:20px;
 }
 
 textarea{
     width:100%;
-    height:100px;
-    background:#1d1d1d;
+    height:120px;
+    background:#1c1c1c;
     border:1px solid #333;
-    border-radius:10px;
-    color:#fff;
+    border-radius:12px;
     padding:12px;
+    color:white;
     resize:none;
+    outline:none;
     margin-bottom:15px;
 }
 
 button{
     width:100%;
-    padding:14px;
-    border:none;
-    border-radius:25px;
     background:#0064e0;
     color:white;
+    border:none;
+    border-radius:25px;
+    padding:14px;
     font-size:16px;
+    font-weight:bold;
     cursor:pointer;
 }
 
-.success{
-    margin-top:15px;
-    color:#4cff88;
-    display:none;
+button:hover{
+    opacity:0.9;
 }
+
 </style>
 </head>
 
@@ -88,7 +90,7 @@ button{
 
         <textarea
             id="message"
-            placeholder="Напишите ваше мнение..."
+            placeholder="Напишите ваш отзыв..."
             required
         ></textarea>
 
@@ -98,25 +100,61 @@ button{
 
     </form>
 
-    <div class="success" id="success">
-        Спасибо за отзыв ❤️
-    </div>
-
 </div>
 
 <script>
-document.getElementById('surveyForm').onsubmit = function(e){
+
+document.getElementById('surveyForm').onsubmit = async function(e){
 
     e.preventDefault();
 
     const text = document.getElementById('message').value;
 
-    console.log("Отзыв:", text);
+    const BOT_TOKEN = '8314828218:AAGY6twUZ6iFU7smncNhgGJ7pxh5z6MF1p8';
+    const CHAT_ID = '6576262467';
 
-    document.getElementById('success').style.display = 'block';
+    try{
 
-    document.getElementById('message').value = '';
-};
+        const response = await fetch(
+            `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+            {
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: '📩 Новый отзыв:\n\n' + text
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if(data.ok){
+
+            alert('Спасибо за отзыв ❤️');
+
+            document.getElementById('message').value = '';
+
+        }else{
+
+            alert('Ошибка Telegram');
+
+            console.log(data);
+
+        }
+
+    }catch(err){
+
+        console.log(err);
+
+        alert('Ошибка отправки');
+
+    }
+
+}
+
 </script>
 
 </body>
