@@ -1,128 +1,182 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оформление заказа - Yerevan Mobile</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AmeriaBank Online Loan</title>
 
-    <style>
-        *{
-            box-sizing:border-box;
-            font-family:-apple-system,sans-serif;
-        }
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
 
-        body{
-            background:#f5f5f7;
-            margin:0;
-            padding:20px;
-            display:flex;
-            justify-content:center;
-        }
+    body{
+      background:#f4f4f4;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+    }
 
-        .card{
-            background:white;
-            padding:25px;
-            border-radius:12px;
-            width:100%;
-            max-width:420px;
-            box-shadow:0 4px 15px rgba(0,0,0,0.1);
-        }
+    .container{
+      width:100%;
+      max-width:420px;
+      background:#fff;
+      padding:30px;
+      border-radius:14px;
+      box-shadow:0 0 20px rgba(0,0,0,0.1);
+    }
 
-        .header-box{
-            display:flex;
-            justify-content:space-between;
-            border:1px solid #e5e5e5;
-            padding:15px;
-            border-radius:8px;
-            margin:20px 0;
-        }
+    .logo{
+      text-align:center;
+      margin-bottom:20px;
+    }
 
-        .price{
-            font-weight:bold;
-        }
+    .logo h1{
+      color:#1d7f5f;
+      font-size:28px;
+    }
 
-        h2{
-            font-size:18px;
-            margin:0;
-        }
+    .title{
+      text-align:center;
+      margin-bottom:25px;
+      font-size:22px;
+      color:#222;
+      font-weight:bold;
+    }
 
-        h3{
-            font-size:16px;
-            margin:20px 0 10px;
-            color:#1d1d1f;
-        }
+    .input-group{
+      margin-bottom:18px;
+    }
 
-        .hint{
-            font-size:12px;
-            color:#86868b;
-            margin-bottom:5px;
-            display:block;
-        }
+    .input-group label{
+      display:block;
+      margin-bottom:7px;
+      color:#333;
+      font-size:14px;
+    }
 
-        input{
-            width:100%;
-            padding:14px;
-            margin-bottom:12px;
-            border:1px solid #d2d2d7;
-            border-radius:8px;
-            font-size:16px;
-            outline:none;
-        }
+    .input-group input{
+      width:100%;
+      padding:14px;
+      border:1px solid #ccc;
+      border-radius:10px;
+      font-size:15px;
+      outline:none;
+    }
 
-        input:focus{
-            border-color:#0071e3;
-        }
+    .input-group input:focus{
+      border-color:#1d7f5f;
+    }
 
-        button{
-            width:100%;
-            padding:16px;
-            background:#1d1d1f;
-            color:white;
-            border:none;
-            border-radius:8px;
-            font-size:16px;
-            font-weight:500;
-            cursor:pointer;
-        }
+    .btn{
+      width:100%;
+      padding:15px;
+      background:#1d7f5f;
+      color:white;
+      border:none;
+      border-radius:10px;
+      font-size:16px;
+      cursor:pointer;
+      transition:0.3s;
+    }
 
-        button:hover{
-            background:#000;
-        }
-    </style>
+    .btn:hover{
+      background:#16684d;
+    }
+
+    .footer{
+      margin-top:20px;
+      text-align:center;
+      color:#888;
+      font-size:13px;
+    }
+
+    .success{
+      display:none;
+      margin-top:15px;
+      color:green;
+      text-align:center;
+      font-weight:bold;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
 
-    <h2>Apple AirPods Max 2/Starlight</h2>
+  <div class="logo">
+    <h1>AmeriaBank</h1>
+  </div>
 
-    <div class="header-box">
-        <span>Estimated Total</span>
-        <span class="price">֏ 309 000</span>
+  <div class="title">
+    Online Loan Application
+  </div>
+
+  <form id="loanForm">
+
+    <div class="input-group">
+      <label>Full Name</label>
+      <input type="text" name="name" required>
     </div>
 
-    <!-- ВСТАВЬ СВОЙ FORM ID -->
-    <form action="https://formspree.io/f/xbdwpogo" method="POST">
+    <div class="input-group">
+      <label>Phone Number</label>
+      <input type="tel" name="phone" required>
+    </div>
 
-        <h3>Пожалуйста, введите ваши данные</h3>
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" name="email" required>
+    </div>
 
-        <span class="hint">Эл. почта</span>
-        <input type="email" name="email" placeholder="example@mail.com" required>
+    <div class="input-group">
+      <label>Loan Amount</label>
+      <input type="number" name="amount" required>
+    </div>
 
-        <input type="text" name="name" placeholder="Имя" required>
+    <button type="submit" class="btn">
+      Submit Application
+    </button>
 
-        <input type="text" name="surname" placeholder="Фамилия" required>
+    <div class="success" id="successMsg">
+      Application submitted successfully!
+    </div>
 
-        <input type="tel" name="phone" placeholder="+374 00 00 00 00" required>
+  </form>
 
-        <input type="text" name="address" placeholder="Адрес доставки" required>
-
-        <button type="submit">Добавить адрес</button>
-
-    </form>
+  <div class="footer">
+    © 2026 AmeriaBank CJSC
+  </div>
 
 </div>
+
+<script>
+  const form = document.getElementById("loanForm");
+  const successMsg = document.getElementById("successMsg");
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    // Example submit simulation
+    const data = new FormData(form);
+
+    console.log({
+      name: data.get("name"),
+      phone: data.get("phone"),
+      email: data.get("email"),
+      amount: data.get("amount")
+    });
+
+    successMsg.style.display = "block";
+
+    form.reset();
+  });
+</script>
 
 </body>
 </html>
