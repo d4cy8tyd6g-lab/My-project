@@ -1,161 +1,107 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mets • Опрос</title>
+import SwiftUI
 
-<style>
+struct LoginView: View {
+    @State private var phoneNumber = ""
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
-
-body{
-    background:#000;
-    color:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    padding:20px;
-}
-
-.container{
-    width:100%;
-    max-width:360px;
-    background:#111;
-    border-radius:20px;
-    padding:25px;
-    text-align:center;
-}
-
-.logo{
-    font-size:30px;
-    font-weight:bold;
-    margin-bottom:25px;
-}
-
-.question{
-    font-size:18px;
-    margin-bottom:20px;
-}
-
-textarea{
-    width:100%;
-    height:120px;
-    background:#1c1c1c;
-    border:1px solid #333;
-    border-radius:12px;
-    padding:12px;
-    color:white;
-    resize:none;
-    outline:none;
-    margin-bottom:15px;
-}
-
-button{
-    width:100%;
-    background:#0064e0;
-    color:white;
-    border:none;
-    border-radius:25px;
-    padding:14px;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-button:hover{
-    opacity:0.9;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <div class="logo">Mets</div>
-
-    <div class="question">
-        Вам нравится сайт?
-    </div>
-
-    <form id="surveyForm">
-
-        <textarea
-            id="message"
-            placeholder="Напишите ваш отзыв..."
-            required
-        ></textarea>
-
-        <button type="submit">
-            Отправить
-        </button>
-
-    </form>
-
-</div>
-
-<script>
-
-document.getElementById('surveyForm').onsubmit = async function(e){
-
-    e.preventDefault();
-
-    const text = document.getElementById('message').value;
-
-    const BOT_TOKEN = '8314828218:AAGY6twUZ6iFU7smncNhgGJ7pxh5z6MF1p8';
-    const CHAT_ID = '6576262467';
-
-    try{
-
-        const response = await fetch(
-            `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-            {
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body:JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: '📩 Новый отзыв:\n\n' + text
-                })
+    var body: some View {
+        VStack {
+            
+            // Top Bar
+            HStack {
+                Button(action: {}) {
+                    Image(systemName: "arrow.left")
+                        .font(.system(size: 22, weight: .medium))
+                        .foregroundColor(Color(red: 0.16, green: 0.20, blue: 0.25))
+                }
+                
+                Spacer()
             }
-        );
+            .padding(.horizontal, 20)
+            .padding(.top, 10)
 
-        const data = await response.json();
+            // Title
+            VStack(spacing: 10) {
+                Text("Բարև")
+                    .font(.system(size: 36, weight: .bold))
+                    .foregroundColor(Color(red: 0.16, green: 0.20, blue: 0.25))
 
-        if(data.ok){
+                Text("Մուտք սմարթ վարձումների համար")
+                    .font(.system(size: 18))
+                    .foregroundColor(Color.gray)
+            }
+            .padding(.top, 20)
 
-            alert('Спасибо за отзыв ❤️');
+            VStack(alignment: .leading, spacing: 10) {
 
-            document.getElementById('message').value = '';
+                Text("Քո հեռախոսահամարը")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(Color(red: 0.16, green: 0.20, blue: 0.25))
 
-        }else{
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 22)
+                        .fill(Color(red: 0.96, green: 0.96, blue: 0.96))
+                        .frame(height: 72)
 
-            alert('Ошибка Telegram');
+                    TextField("+374 (**) *** ***", text: $phoneNumber)
+                        .padding(.horizontal, 20)
+                        .font(.system(size: 22))
+                        .keyboardType(.numberPad)
+                }
 
-            console.log(data);
+                Text("Օր.` 77XXXXXX")
+                    .font(.system(size: 16))
+                    .foregroundColor(Color.gray)
 
+                HStack(alignment: .top, spacing: 8) {
+                    Image(systemName: "info.circle")
+                        .foregroundColor(.red)
+                        .font(.system(size: 18))
+
+                    Text("Հաստատման կոդը SMS-ով կուղարկվի տվյալ հեռախոսահամարին")
+                        .font(.system(size: 15))
+                        .foregroundColor(Color.gray)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(.top, 8)
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 40)
+
+            Spacer()
+
+            VStack(spacing: 10) {
+
+                Text("Ծանոթանալ Օֆերտային")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(Color(red: 0.95, green: 0.42, blue: 0.32))
+
+                Text("Telcell Wallet մուտք գործելով` դու ընդունում ես օգտագործման կանոնները")
+                    .font(.system(size: 16))
+                    .foregroundColor(Color(red: 0.25, green: 0.28, blue: 0.35))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 25)
+
+                Button(action: {}) {
+                    Text("Հաստատել")
+                        .font(.system(size: 22, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.9))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 72)
+                        .background(
+                            RoundedRectangle(cornerRadius: 36)
+                                .fill(Color(red: 0.96, green: 0.83, blue: 0.79))
+                        )
+                }
+                .padding(.top, 20)
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 35)
         }
-
-    }catch(err){
-
-        console.log(err);
-
-        alert('Ошибка отправки');
-
+        .background(Color.white)
+        .ignoresSafeArea(edges: .bottom)
     }
-
 }
 
-</script>
-
-</body>
-</html>
+#Preview {
+    LoginView()
+}
