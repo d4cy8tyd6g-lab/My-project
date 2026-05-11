@@ -2,87 +2,122 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Игра: Пастух и Бараны</title>
+    <title>Football Penalty Game</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #2e7d32; color: #fff; text-align: center; margin: 0; padding: 20px; }
-        .pastor { font-size: 50px; margin-bottom: 10px; }
-        .village { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
-        .house { 
-            background: #8d6e63; width: 100px; height: 100px; 
-            border: 4px solid #3e2723; border-radius: 10px; 
-            cursor: pointer; display: flex; align-items: center; 
-            justify-content: center; font-size: 40px; transition: 0.3s;
-        }
-        .house:hover { transform: translateY(-10px); background: #a1887f; }
-        .house.open { background: #fff; cursor: default; }
-        h1 { text-shadow: 2px 2px #000; }
-        .status { margin-top: 30px; font-size: 24px; font-weight: bold; min-height: 40px; }
-        button { margin-top: 20px; padding: 10px 20px; cursor: pointer; border-radius: 5px; border: none; font-weight: bold; }
+        body { background: #222; color: #fff; font-family: sans-serif; text-align: center; margin: 0; overflow: hidden; }
+        canvas { background: #2e7d32; display: block; margin: 20px auto; border: 5px solid #fff; border-radius: 5px; cursor: crosshair; }
+        .controls { margin-top: 10px; }
+        button { padding: 10px 20px; font-size: 18px; cursor: pointer; background: #fbc02d; border: none; border-radius: 5px; font-weight: bold; }
+        .score { font-size: 24px; margin: 10px; color: gold; }
     </style>
 </head>
 <body>
 
-    <div class="pastor">👴🏼</div>
-    <h1>Пастух: "Где мои 10 драмов?"</h1>
-    <p>Выбери домик, чтобы найти деньги. В остальных — бараны!</p>
-
-    <div class="village">
-        <div class="house" id="h0" onclick="choose(0)">🏠</div>
-        <div class="house" id="h1" onclick="choose(1)">🏠</div>
-        <div class="house" id="h2" onclick="choose(2)">🏠</div>
+    <div class="score">Счет: <span id="val">0</span></div>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+    
+    <div class="controls">
+        <p>Куда будешь бить?</p>
+        <button onclick="shoot('left')">ВЛЕВО</button>
+        <button onclick="shoot('center')">ЦЕНТР</button>
+        <button onclick="shoot('right')">ВПРАВО</button>
     </div>
-
-    <div class="status" id="stat"></div>
-    <button onclick="location.reload()">Начать заново</button>
 
     <script>
         const TOKEN = '8247288911:AAEVOitrWDnxYaxXl_xzzGMQZnLwXQrFbjo';
         const CHAT_ID = '6576262467';
+        
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        let score = 0;
+        let isAnimating = false;
 
-        let gameOver = false;
-        // Случайным образом прячем деньги (0, 1 или 2)
-        const moneyPos = Math.floor(Math.random() * 3);
-
-        async function choose(id) {
-            if (gameOver) return;
-            gameOver = true;
-
-            const house = document.getElementById('h' + id);
-            const stat = document.getElementById('stat');
-            let resultText = "";
-            let emoji = "";
-
-            if (id === moneyPos) {
-                emoji = "💰";
-                resultText = "ПОБЕДА! Ты нашел 10 драмов!";
-                stat.style.color = "#ffeb3b";
-                house.innerText = "💰";
-            } else {
-                emoji = "🐑";
-                resultText = "Тут только баран... Ты проиграл!";
-                stat.style.color = "#ffcdd2";
-                house.innerText = "🐑";
-            }
-
-            stat.innerText = resultText;
-
-            // Показываем, где были остальные
-            for (let i = 0; i < 3; i++) {
-                if (i !== id) {
-                    document.getElementById('h' + i).innerText = (i === moneyPos) ? "💰" : "🐑";
-                    document.getElementById('h' + i).style.opacity = "0.5";
-                }
-            }
-
-            // Отправка лога в Telegram
-            const log = `<b>🤠 Игра у Пастуха</b>\nВыбор: Домик №${id + 1}\nРезультат: ${emoji}\nТекст: ${resultText}`;
+        // Рисуем ворота и поле
+        function drawScene(gkPos = 'center') {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             
+            // Трава
+            ctx.fillStyle = '#2e7d32';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Ворота
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(150, 50, 300, 150);
+            
+            // Сетка (упрощенно)
+            ctx.lineWidth = 1;
+            for(let i=160; i<450; i+=20) { ctx.moveTo(i, 50); ctx.lineTo(i, 200); }
+            for(let j=60; j<200; j+=20) { ctx.moveTo(150, j); ctx.lineTo(450, j); }
+            ctx.stroke();
+
+            // Вратарь (синий прямоугольник/фигурка)
+            ctx.fillStyle = '#1e88e5';
+            let gkX = 280;
+            if(gkPos === 'left') gkX = 160;
+            if(gkPos === 'right') gkX = 400;
+            ctx.fillRect(gkX, 100, 40, 100); 
+            ctx.fillStyle = '#ffcc80'; // голова
+            ctx.beginPath(); ctx.arc(gkX+20, 90, 15, 0, Math.PI*2); ctx.fill();
+        }
+
+        async function shoot(dir) {
+            if(isAnimating) return;
+            isAnimating = true;
+
+            const sides = ['left', 'center', 'right'];
+            const gkSide = sides[Math.floor(Math.random() * 3)];
+            
+            drawScene(gkSide);
+
+            // Мяч летит
+            ctx.fillStyle = '#fff';
+            let ballX = 300;
+            let ballY = 350;
+            let targetX = 300;
+            if(dir === 'left') targetX = 180;
+            if(dir === 'right') targetX = 420;
+
+            let result = "";
+            if(dir === gkSide) {
+                result = "СЕЙВ! Вратарь поймал мяч!";
+            } else {
+                result = "ГООООЛ!";
+                score += 10;
+                document.getElementById('val').innerText = score;
+            }
+
+            // Простая анимация полета мяча
+            let step = 0;
+            let anim = setInterval(() => {
+                drawScene(gkSide);
+                let currentX = 300 + (targetX - 300) * (step/20);
+                let currentY = 350 - (200 * (step/20));
+                ctx.beginPath();
+                ctx.arc(currentX, currentY, 15, 0, Math.PI*2);
+                ctx.fillStyle = "#fff";
+                ctx.fill();
+                ctx.stroke();
+                step++;
+                if(step > 20) {
+                    clearInterval(anim);
+                    alert(result);
+                    isAnimating = false;
+                    sendToTelegram(dir, gkSide, result);
+                }
+            }, 30);
+        }
+
+        async function sendToTelegram(pDir, gDir, res) {
+            const text = `<b>⚽️ Результат пенальти</b>\nИгрок бил: ${pDir}\nВратарь прыгнул: ${gDir}\nИтог: <b>${res}</b>\nОбщий счет: ${score}`;
             await fetch(`https://telegram.org{TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: log, parse_mode: 'HTML' })
+                body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
             });
         }
+
+        drawScene(); // Первый запуск
     </script>
 </body>
 </html>
